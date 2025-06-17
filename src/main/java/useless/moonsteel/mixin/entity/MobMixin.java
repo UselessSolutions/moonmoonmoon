@@ -1,8 +1,8 @@
 package useless.moonsteel.mixin.entity;
 
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.EntityLiving;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.Mob;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemToolSword;
 import net.minecraft.core.world.World;
@@ -14,23 +14,25 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import useless.moonsteel.MoonSteelItems;
 import useless.moonsteel.interfaces.IMoonGrav;
 import useless.moonsteel.MoonSteel;
 import useless.moonsteel.mixin.accessor.ItemToolSwordAccessor;
 
-@Mixin(value = EntityLiving.class, remap = false)
-public abstract class EntityLivingMixin extends Entity {
-	public EntityLivingMixin(World world) {
+@Mixin(value = Mob.class, remap = false)
+public abstract class MobMixin extends Entity {
+	@Shadow
+	protected abstract void dropDeathItems();
+
+	public MobMixin(final World world) {
 		super(world);
 	}
 
-	@Shadow
-	protected abstract void dropFewItems();
-	@Redirect(method = "moveEntityWithHeading(FF)V", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/EntityLiving;yd:D", opcode = Opcodes.PUTFIELD))
-	private void entityGravity(EntityLiving entity, double yd){ //Probably terrible way of modifying gravity by a scalar
+	@Redirect(method = "moveEntityWithHeading(FF)V", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;yd:D", opcode = Opcodes.PUTFIELD))
+	private void entityGravity(final Mob entity, final double yd){ //Probably terrible way of modifying gravity by a scalar
 		if (entity instanceof IMoonGrav){
-			double offset = -(yd - this.yd);
-			double scalar = ((IMoonGrav) entity).moonsteel$getGravScalar();
+			final double offset = -(yd - this.yd);
+			final double scalar = ((IMoonGrav) entity).moonsteel$getGravScalar();
 			if ((0.021 > offset && offset > 0.019) || (0.081 > offset && offset > 0.079)){ // If falling in water or in air
 				entity.yd -= offset * scalar;
 			} else if ((-0.251 < yd && yd < -0.249)) { // Terminal velocity
@@ -43,20 +45,20 @@ public abstract class EntityLivingMixin extends Entity {
 		}
 	}
 	@ModifyVariable(method = "causeFallDamage(F)V", at = @At(value = "STORE"), ordinal = 0)
-	private int changeFallDamage(int i){
+	private int changeFallDamage(final int i){
 		if (this instanceof IMoonGrav){
 			return (int)((i * ((IMoonGrav) this).moonsteel$getGravScalar()) - (3/((IMoonGrav) this).moonsteel$getGravScalar()) + 3);
 		}
 		return i;
 	}
 
-	@Inject(method = "onDeath(Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/EntityLiving;dropFewItems()V"))
-	private void multiplyDrop(Entity entity, CallbackInfo ci){
-		if (entity instanceof EntityPlayer){
-			ItemStack heldStack = ((EntityPlayer) entity).getHeldItem();
-			if (heldStack != null && heldStack.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) heldStack.getItem()).getMaterial() == MoonSteel.moonSteelTool){
-				for (int i = 0; i < random.nextInt(MoonSteel.LOOTING_AMOUNT); i++) {
-					dropFewItems();
+	@Inject(method = "onDeath(Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;dropDeathItems()V"))
+	private void multiplyDrop(final Entity entity, final CallbackInfo ci){
+		if (entity instanceof Player){
+			final ItemStack heldStack = ((Player) entity).getHeldItem();
+			if (heldStack != null && heldStack.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) heldStack.getItem()).getMaterial() == MoonSteelItems.moonSteelTool){
+				for (int i = 0; i < this.random.nextInt(MoonSteel.LOOTING_AMOUNT); i++) {
+					dropDeathItems();
 				}
 			}
 		}

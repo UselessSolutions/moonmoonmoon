@@ -15,7 +15,7 @@ public class ChunkProviderServerMixin {
 	public boolean chunkLoadOverride;
 
 	@Inject(method = "provideChunk(II)Lnet/minecraft/core/world/chunk/Chunk;", at = @At("HEAD"))
-	private void overrideChunks(int chunkX, int chunkZ, CallbackInfoReturnable<Chunk> cir){
+	private void overrideChunks(final int chunkX, final int chunkZ, final CallbackInfoReturnable<Chunk> cir){
 		this.chunkLoadOverride = MoonSteel.forceChunkLoads;
 	}
 }

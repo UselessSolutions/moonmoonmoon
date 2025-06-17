@@ -1,6 +1,6 @@
 package useless.moonsteel.item;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
@@ -9,11 +9,11 @@ import useless.moonsteel.StarBackpackInventory;
 import useless.moonsteel.interfaces.IStarBackpack;
 
 public class ItemStarBackpack extends ItemBackpack {
-	public ItemStarBackpack(String name, int id) {
-		super(name, id, StarBackpackInventory.starBackpackSize);
+	public ItemStarBackpack(String name, String namespaceId, int id) {
+		super(name, namespaceId, id, StarBackpackInventory.starBackpackSize);
 	}
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
 		if (!world.isClientSide && BetterWithBackpacks.ENABLE_BACKPACKS) {
 			((IStarBackpack)entityplayer).moonsteel$displayGuiStarBackpack();
 		}

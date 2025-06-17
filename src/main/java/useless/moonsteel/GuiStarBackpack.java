@@ -1,17 +1,18 @@
 package useless.moonsteel;
 
-import net.minecraft.client.gui.GuiContainer;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.client.gui.container.ScreenContainerAbstract;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.lang.I18n;
 import org.lwjgl.opengl.GL11;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
 
-public class GuiStarBackpack extends GuiContainer {
+public class GuiStarBackpack extends ScreenContainerAbstract {
 	private int GUIx;
 	private int GUIy;
 	private int rows;
 	private int slotsNum;
 	private final ContainerStarBackpack backpack;
-	public GuiStarBackpack(EntityPlayer player) {
+	public GuiStarBackpack(Player player) {
 		super(new ContainerStarBackpack(player));
 		backpack = (ContainerStarBackpack) inventorySlots;
 	}
@@ -19,19 +20,19 @@ public class GuiStarBackpack extends GuiContainer {
 	public void init() {
 		this.GUIx = (this.width - this.xSize) / 2;
 		this.GUIy = (this.height - this.ySize) / 2;
-		this.slotsNum = this.backpack.backpackInventory.getSizeInventory();
+		this.slotsNum = this.backpack.backpackInventory.getContainerSize();
 		this.rows = (int)Math.ceil((double)this.slotsNum / 9.0);
 		super.init();
 	}
 
 	protected void drawGuiContainerForegroundLayer() {
-		this.fontRenderer.drawString(this.backpack.backpackInventory.getInvName(), 8, 6, BetterWithBackpacks.GUI_LABEL_COLOR);
-		this.fontRenderer.drawString("Inventory", 8, this.ySize - 96 + 2, BetterWithBackpacks.GUI_LABEL_COLOR);
+		this.font.drawString(I18n.getInstance().translateKey(this.backpack.backpackInventory.getNameTranslationKey()), 8, 6, BetterWithBackpacks.GUI_LABEL_COLOR);
+		this.font.drawString("Inventory", 8, this.ySize - 96 + 2, BetterWithBackpacks.GUI_LABEL_COLOR);
 	}
 
 	protected void drawGuiContainerBackgroundLayer(float f) {
 		GL11.glColor3d(1.0, 1.0, 1.0);
-		this.mc.renderEngine.bindTexture(this.mc.renderEngine.getTexture("/assets/betterwithbackpacks/gui/backpack.png"));
+		this.mc.textureManager.loadTexture("/assets/betterwithbackpacks/gui/backpack.png").bind();
 		this.drawTexturedModalRect(this.GUIx, this.GUIy, 0, 0, this.xSize, this.ySize);
 
 		for(int i = 0; i < this.rows; ++i) {

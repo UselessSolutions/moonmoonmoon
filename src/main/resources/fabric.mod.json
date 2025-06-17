@@ -31,10 +31,16 @@
 			"useless.moonsteel.MoonSteel"
 		],
 		"recipesReady": [
-			"useless.moonsteel.MoonSteel"
+			"useless.moonsteel.MoonSteelRecipes"
 		],
 		"beforeClientStart": [
 			"useless.moonsteel.MoonSteel"
+		],
+		"afterClientStart": [
+			"useless.moonsteel.MoonSteel"
+		],
+		"initModels": [
+			"useless.moonsteel.MoonSteelModels"
 		]
 	},
   "mixins": [
@@ -42,11 +48,11 @@
   ],
 
   "depends": {
-		"minecraft": "^7.2",
+		"minecraft": "~7.3",
     "fabricloader": ">=0.13.3",
-		"halplibe": ">=4.1.0"
+		"halplibe": ">=5.2.0"
   },
   "suggests": {
-		"betterwithbackpacks": ">=1.0.0"
+		"betterwithbackpacks": ">=1.1.10"
   }
 }

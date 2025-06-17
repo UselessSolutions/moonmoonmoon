@@ -1,32 +1,35 @@
 package useless.moonsteel;
 
-import com.mojang.nbt.CompoundTag;
-import com.mojang.nbt.ListTag;
-import net.minecraft.core.entity.player.EntityPlayer;
+import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.ListTag;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.IInventory;
 import net.minecraft.core.player.inventory.InventorySorter;
+import net.minecraft.core.player.inventory.container.Container;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
 
-public class StarBackpackInventory implements IInventory {
+public class StarBackpackInventory implements Container {
 	public static int starBackpackSize = 18;
 	protected ItemStack[] backpackItemStacks;
-	public EntityPlayer player;
+	public Player player;
 
-	public StarBackpackInventory(EntityPlayer player) {
+	public StarBackpackInventory(Player player) {
 		this.player = player;
         this.backpackItemStacks = new ItemStack[starBackpackSize];
 	}
 
-	public int getSizeInventory() {
+	@Override
+	public int getContainerSize() {
 		return starBackpackSize;
 	}
 
-	public ItemStack getStackInSlot(int i) {
+	@Override
+	public ItemStack getItem(int i) {
 		return this.backpackItemStacks[i];
 	}
 
-	public ItemStack decrStackSize(int i, int j) {
+	@Override
+	public ItemStack removeItem(int i, int j) {
 		if (this.backpackItemStacks[i] != null) {
 			if (this.backpackItemStacks[i].stackSize <= j) {
 				ItemStack itemstack = this.backpackItemStacks[i];
@@ -45,28 +48,31 @@ public class StarBackpackInventory implements IInventory {
 		}
 	}
 
-	public void setInventorySlotContents(int i, ItemStack itemStack) {
+	@Override
+	public void setItem(int i, ItemStack itemStack) {
 		this.backpackItemStacks[i] = itemStack;
-		if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit()) {
-			itemStack.stackSize = this.getInventoryStackLimit();
+		if (itemStack != null && itemStack.stackSize > this.getMaxStackSize()) {
+			itemStack.stackSize = this.getMaxStackSize();
 		}
 	}
 
-	public String getInvName() {
-		return "Stardust Backpack";
+	@Override
+	public String getNameTranslationKey() {
+		return "moonsteel.container.backpack.star.name";
 	}
 
-	public int getInventoryStackLimit() {
+	@Override
+	public int getMaxStackSize() {
 		return 64;
 	}
 
 	@Override
-	public void onInventoryChanged() {
+	public void setChanged() {
 
 	}
 
 	public void readFromNBT(ListTag tagList) {
-		this.backpackItemStacks = new ItemStack[this.getSizeInventory()];
+		this.backpackItemStacks = new ItemStack[this.getContainerSize()];
 
 		for(int i = 0; i < tagList.tagCount(); ++i) {
 			CompoundTag nbttagcompound1 = (CompoundTag)tagList.tagAt(i);
@@ -90,18 +96,20 @@ public class StarBackpackInventory implements IInventory {
 		return tagList;
 	}
 
-	public boolean canInteractWith(EntityPlayer entityPlayer) {
+	@Override
+	public boolean stillValid(Player entityPlayer) {
 		if (!BetterWithBackpacks.ENABLE_BACKPACKS) {
 			return false;
 		} else if (entityPlayer.getHeldItem() == null) {
 			return false;
 		} else {
 			ItemStack heldItem = entityPlayer.getHeldItem();
-			return heldItem.getItem() == MoonSteel.cosmicBackpack;
+			return heldItem.getItem() == MoonSteelItems.BACKPACK_COSMIC;
 		}
 	}
 
-	public void sortInventory() {
+	@Override
+	public void sortContainer() {
 		InventorySorter.sortInventory(this.backpackItemStacks);
 	}
 }

@@ -1,22 +1,22 @@
 package useless.moonsteel.mixin.backpack;
 
-import net.minecraft.core.net.packet.Packet100OpenWindow;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.core.net.packet.PacketContainerOpen;
+import net.minecraft.server.entity.player.PlayerServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import useless.moonsteel.ContainerStarBackpack;
 import useless.moonsteel.MoonSteel;
 
-@Mixin(value = EntityPlayerMP.class, remap = false)
-public abstract class EntityPlayerMPMixin extends EntityPlayerMixin {
+@Mixin(value = PlayerServer.class, remap = false)
+public abstract class PlayerServerMixin extends PlayerMixin {
 	@Shadow
 	protected abstract void getNextWindowId();
 
 	@Shadow
 	private int currentWindowId;
 	@Unique
-	public EntityPlayerMP thisAs = (EntityPlayerMP) (Object)this;
+	public PlayerServer thisAs = (PlayerServer) (Object)this;
 
 	@Override
 	public void moonsteel$displayGuiStarBackpack() {
@@ -25,10 +25,10 @@ public abstract class EntityPlayerMPMixin extends EntityPlayerMixin {
 		this.thisAs
 			.playerNetServerHandler
 			.sendPacket(
-				new Packet100OpenWindow(this.currentWindowId, MoonSteel.GUI_ID, "moonsteel$StarBackpack", backpack.backpackInventory.getSizeInventory())
+				new PacketContainerOpen(this.currentWindowId, MoonSteel.GUI_ID, "moonsteel$StarBackpack", backpack.backpackInventory.getContainerSize())
 			);
 		this.thisAs.craftingInventory = backpack;
-		this.thisAs.craftingInventory.windowId = this.currentWindowId;
-		this.thisAs.craftingInventory.onContainerInit(this.thisAs);
+		this.thisAs.craftingInventory.containerId = this.currentWindowId;
+		this.thisAs.craftingInventory.addSlotListener(this.thisAs);
 	}
 }

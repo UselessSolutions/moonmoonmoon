@@ -1,19 +1,19 @@
 package useless.moonsteel;
 
 import net.minecraft.core.InventoryAction;
-import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.player.inventory.Container;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
 import useless.moonsteel.interfaces.IStarBackpack;
 
 import java.util.List;
 
-public class ContainerStarBackpack extends Container {
+public class ContainerStarBackpack extends MenuAbstract {
 	public StarBackpackInventory backpackInventory;
-	public ContainerStarBackpack(EntityPlayer player) {
-		backpackInventory = ((IStarBackpack)player).moonsteel$getStarBackpackInventory();
-		int slotsNum = this.backpackInventory.getSizeInventory();
-		int rows = (int)Math.ceil((double)slotsNum / 9.0);
+	public ContainerStarBackpack(final Player player) {
+		this.backpackInventory = ((IStarBackpack)player).moonsteel$getStarBackpackInventory();
+		final int slotsNum = this.backpackInventory.getContainerSize();
+		final int rows = (int)Math.ceil((double)slotsNum / 9.0);
 
 		for(int i = 0; i < rows; ++i) {
 			int width = 9;
@@ -37,20 +37,21 @@ public class ContainerStarBackpack extends Container {
 		}
 	}
 
-	public List<Integer> getMoveSlots(InventoryAction inventoryAction, Slot slot, int i, EntityPlayer entityPlayer) {
-		int chestSize = this.backpackInventory.getSizeInventory();
-		if (slot.id >= 0 && slot.id < chestSize) {
+	@Override
+	public List<Integer> getMoveSlots(final InventoryAction inventoryAction, final Slot slot, final int i, final Player entityPlayer) {
+		final int chestSize = this.backpackInventory.getContainerSize();
+		if (slot.index >= 0 && slot.index < chestSize) {
 			return this.getSlots(0, chestSize, false);
 		} else {
 			if (inventoryAction == InventoryAction.MOVE_ALL) {
-				if (slot.id >= chestSize && slot.id < chestSize + 27) {
+				if (slot.index >= chestSize && slot.index < chestSize + 27) {
 					return this.getSlots(chestSize, 27, false);
 				}
 
-				if (slot.id >= chestSize + 27 && slot.id < chestSize + 36) {
+				if (slot.index >= chestSize + 27 && slot.index < chestSize + 36) {
 					return this.getSlots(chestSize + 27, 9, false);
 				}
-			} else if (slot.id >= chestSize && slot.id < chestSize + 36) {
+			} else if (slot.index >= chestSize && slot.index < chestSize + 36) {
 				return this.getSlots(chestSize, 36, false);
 			}
 
@@ -58,13 +59,15 @@ public class ContainerStarBackpack extends Container {
 		}
 	}
 
-	public List<Integer> getTargetSlots(InventoryAction inventoryAction, Slot slot, int i, EntityPlayer entityPlayer) {
-		int chestSize = this.backpackInventory.getSizeInventory();
-		return slot.id < chestSize ? this.getSlots(chestSize, 36, true) : this.getSlots(0, chestSize, false);
+	@Override
+	public List<Integer> getTargetSlots(final InventoryAction inventoryAction, final Slot slot, final int i, final Player entityPlayer) {
+		final int chestSize = this.backpackInventory.getContainerSize();
+		return slot.index < chestSize ? this.getSlots(chestSize, 36, true) : this.getSlots(0, chestSize, false);
 	}
 
-	public boolean isUsableByPlayer(EntityPlayer entityPlayer) {
-		return this.backpackInventory.canInteractWith(entityPlayer);
+	@Override
+	public boolean stillValid(final Player entityPlayer) {
+		return this.backpackInventory.stillValid(entityPlayer);
 	}
 
 }

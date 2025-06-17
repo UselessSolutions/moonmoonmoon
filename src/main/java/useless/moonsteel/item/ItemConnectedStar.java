@@ -1,7 +1,7 @@
 package useless.moonsteel.item;
 
 import net.minecraft.core.block.entity.TileEntity;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.MathHelper;
@@ -12,12 +12,12 @@ import useless.moonsteel.MoonSteel;
 import useless.moonsteel.block.TileEntityStellarRewinder;
 
 public class ItemConnectedStar extends Item {
-	public ItemConnectedStar(String name, int id) {
-		super(name, id);
+	public ItemConnectedStar(String name, String namespaceId, int id) {
+		super(name, namespaceId, id);
 	}
 
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, EntityPlayer entityplayer) {
+	public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
 		if (itemstack.getData().getBoolean("moonsteel$has_location")){
 			int destX = itemstack.getData().getInteger("moonsteel$x");
 			int destY = itemstack.getData().getInteger("moonsteel$y");
@@ -27,7 +27,7 @@ public class ItemConnectedStar extends Item {
 				entityplayer.sendTranslatedChatMessage("moonsteel.teleport.fail.dimension");
 				return itemstack;
 			}
-			int cost = MathHelper.floor_double(entityplayer.distanceTo(destX, destY, destZ));
+			int cost = MathHelper.floor(entityplayer.distanceTo(destX, destY, destZ));
 			if (entityplayer.score < cost) {
 				entityplayer.sendTranslatedChatMessage("moonsteel.teleport.fail.score");
 				return itemstack;

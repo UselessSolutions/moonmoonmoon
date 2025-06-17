@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import useless.moonsteel.MoonSteel;
+import useless.moonsteel.MoonSteelItems;
 
 import java.util.Random;
 
@@ -19,8 +20,8 @@ public class WorldFeatureLabyrinthMixin {
 	@Shadow
 	public WeightedRandomBag<WeightedRandomLootObject> chestLoot;
 
-	@Inject(method = "generate", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/WeightedRandomBag;addEntry(Ljava/lang/Object;D)V", ordinal = 0))
-	private void addLoot(World world, Random random, int x, int y, int z, CallbackInfoReturnable<Boolean> cir){
-		chestLoot.addEntry(new WeightedRandomLootObject(MoonSteel.crudeMoonSteel.getDefaultStack(), 1, 4), 5d);
+	@Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/WeightedRandomBag;addEntry(Ljava/lang/Object;D)V", ordinal = 0))
+	private void addLoot(final World world, final Random random, final int x, final int y, final int z, final CallbackInfoReturnable<Boolean> cir){
+		this.chestLoot.addEntry(new WeightedRandomLootObject(MoonSteelItems.INGOT_MOONSTEEL_CRUDE.getDefaultStack(), 1, 4), 5d);
 	}
 }
