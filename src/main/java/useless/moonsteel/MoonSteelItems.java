@@ -14,7 +14,6 @@ import net.minecraft.core.item.tool.ItemToolSword;
 import turniplabs.halplibe.helper.ArmorHelper;
 import turniplabs.halplibe.helper.ItemBuilder;
 import useless.moonsteel.item.ItemConnectedStar;
-import useless.moonsteel.item.ItemStarBackpack;
 
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
@@ -55,7 +54,7 @@ public class MoonSteelItems {
 		if (MoonSteel.backpackPresent){
 			BACKPACK_COSMIC = new ItemBuilder(MOD_ID)
 				.setStackSize(1)
-				.build(new ItemStarBackpack("backpack.cosmic", MOD_ID + ":item/backpack_cosmic", MoonSteel.itemId++));
+				.build( BackpackProxy.proxyBackpack("backpack.cosmic", MOD_ID + ":item/backpack_cosmic", MoonSteel.itemId++));
 		} else {
 			BACKPACK_COSMIC = new ItemBuilder(MOD_ID)
 				.setStackSize(1)
