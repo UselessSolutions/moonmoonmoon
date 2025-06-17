@@ -2,6 +2,8 @@ package useless.moonsteel.mixin.backpack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
+import net.minecraft.core.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -13,6 +15,10 @@ public class PlayerLocalMixin extends PlayerMixin {
 	protected Minecraft mc;
 	@Unique
 	public PlayerLocal thisAs = (PlayerLocal) (Object)this;
+
+	public PlayerLocalMixin(@Nullable World world) {
+		super(world);
+	}
 
 	@Override
 	public void moonsteel$displayGuiStarBackpack() {

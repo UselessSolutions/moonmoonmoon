@@ -25,7 +25,7 @@ public class MoonSteelBlocks {
 		.setHardness(5f)
 		.setResistance(2000f)
 		.addTags(BlockTags.MINEABLE_BY_PICKAXE)
-		.build("block.moonsteel", "block_moonsteel", MoonSteel.blockId++, b -> new BlockLogic(b, Material.metal));
+		.build("block", "block_moonsteel", MoonSteel.blockId++, b -> new BlockLogic(b, Material.metal));
 	public static Block<?> TORCH_STAR = new BlockBuilder(MOD_ID)
 		.setLuminance(15)
 		.build("torch.star", "torch_star", MoonSteel.blockId++,BlockTorchStar::new)

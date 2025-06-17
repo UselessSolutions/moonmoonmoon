@@ -10,6 +10,7 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.chunk.Chunk;
 import useless.moonsteel.MoonSteel;
 import useless.moonsteel.block.TileEntityStellarRewinder;
+import useless.moonsteel.interfaces.ITeleporter;
 
 public class ItemConnectedStar extends Item {
 	public ItemConnectedStar(String name, String namespaceId, int id) {
@@ -39,7 +40,7 @@ public class ItemConnectedStar extends Item {
 			if (te instanceof TileEntityStellarRewinder && ((TileEntityStellarRewinder) te).canTeleport(itemstack)){
 				entityplayer.score -= cost;
 				Side side = ((TileEntityStellarRewinder) te).side;
-				MoonSteel.teleport(destX + side.getOffsetX() + 0.5f, destY + side.getOffsetY(), destZ + side.getOffsetZ() + 0.5f, entityplayer);
+				((ITeleporter) entityplayer).moonsteel$teleport(destX + side.getOffsetX() + 0.5f, destY + side.getOffsetY(), destZ + side.getOffsetZ() + 0.5f);
 				((TileEntityStellarRewinder) te).setInUse(false);
 			} else if (!world.isClientSide) {
 				entityplayer.sendTranslatedChatMessage("moonsteel.teleport.fail.missing");

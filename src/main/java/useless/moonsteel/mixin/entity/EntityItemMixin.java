@@ -30,7 +30,7 @@ public abstract class EntityItemMixin extends Entity implements IFallenStar {
 		if (itemstack.getItem() == MoonSteelItems.STAR_FALLEN){
 			this.viewScale = 30;
 			if (this.y > world.getWorldType().getMaxY()){
-				world.playSoundEffect(null, SoundCategory.WEATHER_SOUNDS, (float) this.x, world.findTopSolidBlock((int) this.x, (int) this.z) + 10, (float) this.z,  "moonsteel.starspawn", 5, 1f + this.random.nextFloat() * 0.1f);
+				world.playSoundEffect(null, SoundCategory.WEATHER_SOUNDS, (float) this.x, world.findTopSolidBlock((int) this.x, (int) this.z) + 10, (float) this.z,  "moonsteel:starspawn", 5, 1f + this.random.nextFloat() * 0.1f);
 			}
 		}
 	}
