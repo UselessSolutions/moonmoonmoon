@@ -2,8 +2,6 @@ package useless.moonsteel;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.entity.particle.ParticleDispatcher;
-import net.minecraft.client.sound.SoundRepository;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -13,17 +11,14 @@ import org.slf4j.LoggerFactory;
 import tosutosu.betterwithbackpacks.ModItems;
 import turniplabs.halplibe.helper.CreativeHelper;
 import turniplabs.halplibe.helper.EntityHelper;
-import turniplabs.halplibe.util.ClientStartEntrypoint;
 import turniplabs.halplibe.util.ConfigHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import useless.moonsteel.block.TileEntityStellarRewinder;
-import useless.moonsteel.fx.ParticleMagicSmoke;
-import useless.moonsteel.fx.ParticleStar;
 
 import java.util.Properties;
 
 
-public class MoonSteel implements ModInitializer, GameStartEntrypoint, ClientStartEntrypoint {
+public class MoonSteel implements ModInitializer, GameStartEntrypoint {
     public static final String MOD_ID = "moonsteel";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static boolean backpackPresent = FabricLoader.getInstance().isModLoaded("betterwithbackpacks");
@@ -74,17 +69,6 @@ public class MoonSteel implements ModInitializer, GameStartEntrypoint, ClientSta
 	@Override
 	public void afterGameStart() {
 
-	}
-
-	@Override
-	public void beforeClientStart() {
-		SoundRepository.registerNamespace(MOD_ID);
-	}
-
-	@Override
-	public void afterClientStart() {
-		ParticleDispatcher.getInstance().addDispatch("moonsteel$star", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleStar(world, x, y, z, motionX, motionY, motionX));
-		ParticleDispatcher.getInstance().addDispatch("moonsteel$magic_smoke", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleMagicSmoke(world, x, y, z, motionX, motionY, motionX));
 	}
 
 	public static boolean isStarTime(final World world){

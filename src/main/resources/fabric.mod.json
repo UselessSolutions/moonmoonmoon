@@ -34,10 +34,10 @@
 			"useless.moonsteel.MoonSteelRecipes"
 		],
 		"beforeClientStart": [
-			"useless.moonsteel.MoonSteel"
+			"useless.moonsteel.MoonSteelClient"
 		],
 		"afterClientStart": [
-			"useless.moonsteel.MoonSteel"
+			"useless.moonsteel.MoonSteelClient"
 		],
 		"initModels": [
 			"useless.moonsteel.MoonSteelModels"
