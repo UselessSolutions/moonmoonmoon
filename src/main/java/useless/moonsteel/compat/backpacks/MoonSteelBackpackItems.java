@@ -21,6 +21,6 @@ public class MoonSteelBackpackItems {
     public static void initializeItems() {
         BACKPACK_COSMIC = new ItemBuilder(MOD_ID)
             .setStackSize(1)
-            .build(BackpackProxy.proxyBackpack("backpack.cosmic", MOD_ID + ":item/backpack_cosmic", MoonSteel.itemId++));
+            .build(new ItemStarBackpack("backpack.cosmic", MOD_ID + ":item/backpack_cosmic", MoonSteel.itemId++));
     }
 }
