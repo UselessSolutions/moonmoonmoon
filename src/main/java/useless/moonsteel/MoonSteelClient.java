@@ -14,21 +14,21 @@ import java.net.URISyntaxException;
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
 public class MoonSteelClient implements ClientStartEntrypoint {
-	@Override
-	public void beforeClientStart() {
-		for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
-			try {
-				TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
-			} catch (URISyntaxException | IOException e) {
-				MoonSteel.LOGGER.error("Failed to initialize texture files!", e);
-			}
-		}
-		SoundRepository.registerNamespace(MOD_ID);
-	}
+    @Override
+    public void beforeClientStart() {
+        for (final AtlasStitcher stitcher : TextureRegistry.stitcherMap.values()) {
+            try {
+                TextureRegistry.initializeAllFiles(MOD_ID, stitcher, true);
+            } catch (URISyntaxException | IOException e) {
+                MoonSteel.LOGGER.error("Failed to initialize texture files!", e);
+            }
+        }
+        SoundRepository.registerNamespace(MOD_ID);
+    }
 
-	@Override
-	public void afterClientStart() {
-		ParticleDispatcher.getInstance().addDispatch("moonsteel$star", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleStar(world, x, y, z, motionX, motionY, motionX));
-		ParticleDispatcher.getInstance().addDispatch("moonsteel$magic_smoke", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleMagicSmoke(world, x, y, z, motionX, motionY, motionX));
-	}
+    @Override
+    public void afterClientStart() {
+        ParticleDispatcher.getInstance().addDispatch("moonsteel$star", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleStar(world, x, y, z, motionX, motionY, motionX));
+        ParticleDispatcher.getInstance().addDispatch("moonsteel$magic_smoke", (world, x, y, z, motionX, motionY, motionZ, data) -> new ParticleMagicSmoke(world, x, y, z, motionX, motionY, motionX));
+    }
 }

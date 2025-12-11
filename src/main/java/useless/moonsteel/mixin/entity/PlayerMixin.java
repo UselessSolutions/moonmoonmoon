@@ -10,16 +10,20 @@ import useless.moonsteel.interfaces.IMoonGrav;
 
 @Mixin(value = Player.class, remap = false)
 public class PlayerMixin implements IMoonGrav {
-	@Shadow
-	public ContainerInventory inventory;
+    @Shadow
+    public ContainerInventory inventory;
 
-	@Override
-	public double moonsteel$getGravScalar() {
-		double scalar = 0d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_HEAD) != null && inventory.armorItemInSlot(IArmorItem.PIECE_HEAD).getItem() == MoonSteelItems.ARMOR_HELMET_MOONSTEEL) scalar += 0.167d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_CHEST) != null && inventory.armorItemInSlot(IArmorItem.PIECE_CHEST).getItem() == MoonSteelItems.ARMOR_CHESTPLATE_MOONSTEEL) scalar += 0.334d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_LEGS) != null && inventory.armorItemInSlot(IArmorItem.PIECE_LEGS).getItem() == MoonSteelItems.ARMOR_LEGGINGS_MOONSTEEL) scalar += 0.167d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_BOOTS) != null && inventory.armorItemInSlot(IArmorItem.PIECE_BOOTS).getItem() == MoonSteelItems.ARMOR_BOOTS_MOONSTEEL) scalar += 0.334d;
-		return (1/(scalar + 1));
-	}
+    @Override
+    public double moonsteel$getGravScalar() {
+        double scalar = 0d;
+        if (inventory.armorItemInSlot(IArmorItem.PIECE_HEAD) != null && inventory.armorItemInSlot(IArmorItem.PIECE_HEAD).getItem().equals(MoonSteelItems.ARMOR_HELMET_MOONSTEEL))
+            scalar += 0.167d;
+        if (inventory.armorItemInSlot(IArmorItem.PIECE_CHEST) != null && inventory.armorItemInSlot(IArmorItem.PIECE_CHEST).getItem().equals(MoonSteelItems.ARMOR_CHESTPLATE_MOONSTEEL))
+            scalar += 0.334d;
+        if (inventory.armorItemInSlot(IArmorItem.PIECE_LEGS) != null && inventory.armorItemInSlot(IArmorItem.PIECE_LEGS).getItem().equals(MoonSteelItems.ARMOR_LEGGINGS_MOONSTEEL))
+            scalar += 0.167d;
+        if (inventory.armorItemInSlot(IArmorItem.PIECE_BOOTS) != null && inventory.armorItemInSlot(IArmorItem.PIECE_BOOTS).getItem().equals(MoonSteelItems.ARMOR_BOOTS_MOONSTEEL))
+            scalar += 0.334d;
+        return (1 / (scalar + 1));
+    }
 }

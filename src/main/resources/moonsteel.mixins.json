@@ -1,23 +1,21 @@
 {
   "required": true,
-  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
   "package": "useless.moonsteel.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "plugin": "useless.moonsteel.MoonSteelMixinPlugin",
+  "compatibilityLevel": "JAVA_${java}",
   "injectors": {
     "defaultRequire": 1
   },
   "server": [
-    "ChunkProviderServerMixin",
-    "PlayerListMixin",
-    "backpack.PlayerServerMixin"
+    "ChunkProviderServerMixin"
   ],
   "mixins": [
     "BlockLogicMixin",
     "WorldFeatureLabyrinthMixin",
     "WorldMixin",
     "accessor.ItemToolSwordAccessor",
-    "backpack.PlayerMixin",
     "entity.EntityItemMixin",
     "entity.MobMixin",
     "entity.MobZombieArmoredMixin",
@@ -25,9 +23,6 @@
   ],
   "client": [
     "ChunkProviderStaticMixin",
-    "MobRenderZombieArmoredMixin",
-    "PacketHandlerClientMixin",
-    "backpack.MinecraftMixin",
-    "backpack.PlayerLocalMixin"
+    "MobRenderZombieArmoredMixin"
   ]
 }

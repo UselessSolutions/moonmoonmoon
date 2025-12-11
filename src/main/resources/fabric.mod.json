@@ -2,57 +2,63 @@
   "schemaVersion": 1,
   "id": "moonsteel",
   "version": "${version}",
-
   "name": "MoonMoonMoon",
   "description": "Adds a new cosmic material to the game with special properties.",
   "authors": [
     "Useless"
   ],
-	"contributors": [
-		"BigJango"
-	],
-	"contact": {
+  "contributors": [
+    "BigJango",
+    "LukeisStuff"
+  ],
+  "contact": {
     "homepage": "https://github.com/UselessSolutions/moonmoonmoon",
     "issues": "https://github.com/UselessSolutions/moonmoonmoon/issues"
   },
-
-	"icon": "icon.png",
+  "icon": "icon.png",
   "license": "CC0-1.0",
-
   "environment": "*",
   "entrypoints": {
     "main": [
-			"useless.moonsteel.MoonSteel"
+      "useless.moonsteel.MoonSteel"
     ],
-		"beforeGameStart": [
-			"useless.moonsteel.MoonSteel"
-		],
-		"afterGameStart": [
-			"useless.moonsteel.MoonSteel"
-		],
-		"recipesReady": [
-			"useless.moonsteel.MoonSteelRecipes"
-		],
-		"beforeClientStart": [
-			"useless.moonsteel.MoonSteelClient"
-		],
-		"afterClientStart": [
-			"useless.moonsteel.MoonSteelClient"
-		],
-		"initModels": [
-			"useless.moonsteel.MoonSteelModels"
-		]
-	},
+    "beforeGameStart": [
+      "useless.moonsteel.MoonSteel",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
+    ],
+    "afterGameStart": [
+      "useless.moonsteel.MoonSteel",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
+    ],
+    "recipesReady": [
+      "useless.moonsteel.MoonSteelRecipes",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
+    ],
+    "beforeClientStart": [
+      "useless.moonsteel.MoonSteelClient"
+    ],
+    "afterClientStart": [
+      "useless.moonsteel.MoonSteelClient"
+    ],
+    "initModels": [
+      "useless.moonsteel.MoonSteelModels",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
+    ],
+    "preLaunch": [
+      "useless.moonsteel.compat.deep.MoonSteelDeepCompatibility",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
+    ]
+  },
   "mixins": [
-      "moonsteel.mixins.json"
+    "moonsteel.mixins.json"
   ],
-
   "depends": {
-		"minecraft": "~7.3",
-    "fabricloader": ">=0.13.3",
-		"halplibe": ">=5.2.0"
+    "fabricloader": ">=${fabricloader}",
+    "halplibe": ">=${halplibe}",
+    "minecraft": "*",
+    "java": ">=${java}"
   },
   "suggests": {
-		"betterwithbackpacks": ">=1.1.10"
+    "modmenu": ">=${modmenu}"
   }
 }
