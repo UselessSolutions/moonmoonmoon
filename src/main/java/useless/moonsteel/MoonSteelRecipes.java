@@ -26,6 +26,10 @@ public class MoonSteelRecipes implements RecipeEntrypoint {
             .addInput('S', Items.INGOT_STEEL_CRUDE)
             .create("raw_moonsteel", MoonSteelItems.INGOT_MOONSTEEL_CRUDE.getDefaultStack());
 
+        RecipeBuilder.Shapeless(MOD_ID)
+            .addInput(MoonSteelBlocks.BLOCK_MOONSTEEL)
+            .create("block_of_moonsteel_to_moonsteel", new ItemStack(MoonSteelItems.INGOT_MOONSTEEL, 9));
+
         RecipeBuilder.Shaped(MOD_ID)
             .setShape(
                 "M",
