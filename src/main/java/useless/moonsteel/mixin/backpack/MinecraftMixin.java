@@ -13,11 +13,11 @@ import useless.moonsteel.interfaces.IStarBackpack;
 
 @Mixin(value = Minecraft.class, remap = false)
 public class MinecraftMixin {
-	@Shadow
-	public PlayerLocal thePlayer;
+    @Shadow
+    public PlayerLocal thePlayer;
 
-	@Inject(method = "respawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/player/PlayerLocal;setGamemode(Lnet/minecraft/core/player/gamemode/Gamemode;)V", shift = At.Shift.AFTER))
-	public void keepBackpack(boolean flag, int i, CallbackInfo ci, @Local Player previousPlayer){
-		((IStarBackpack)thePlayer).moonsteel$setStarBackpackInventory(((IStarBackpack)previousPlayer).moonsteel$getStarBackpackInventory());
-	}
+    @Inject(method = "respawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/player/PlayerLocal;setGamemode(Lnet/minecraft/core/player/gamemode/Gamemode;)V", shift = At.Shift.AFTER))
+    public void keepBackpack(boolean flag, int i, CallbackInfo ci, @Local Player previousPlayer) {
+        ((IStarBackpack) thePlayer).moonsteel$setStarBackpackInventory(((IStarBackpack) previousPlayer).moonsteel$getStarBackpackInventory());
+    }
 }

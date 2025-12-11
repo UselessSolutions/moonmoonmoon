@@ -9,10 +9,10 @@ import useless.moonsteel.MoonSteel;
 
 @Mixin(value = ChunkProviderStatic.class, remap = false)
 public class ChunkProviderStaticMixin {
-	@Inject(method = "canChunkExist(II)Z", at = @At("HEAD"), cancellable = true)
-	private void overrideChunk(final int chunkX, final int chunkZ, final CallbackInfoReturnable<Boolean> cir){
-		if (MoonSteel.forceChunkLoads){
-			cir.setReturnValue(true);
-		}
-	}
+    @Inject(method = "canChunkExist(II)Z", at = @At("HEAD"), cancellable = true)
+    private void overrideChunk(final int chunkX, final int chunkZ, final CallbackInfoReturnable<Boolean> cir) {
+        if (MoonSteel.forceChunkLoads) {
+            cir.setReturnValue(true);
+        }
+    }
 }

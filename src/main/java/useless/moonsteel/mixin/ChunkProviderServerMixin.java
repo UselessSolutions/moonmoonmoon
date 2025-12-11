@@ -11,11 +11,11 @@ import useless.moonsteel.MoonSteel;
 
 @Mixin(value = ChunkProviderServer.class, remap = false)
 public class ChunkProviderServerMixin {
-	@Shadow
-	public boolean chunkLoadOverride;
+    @Shadow
+    public boolean chunkLoadOverride;
 
-	@Inject(method = "provideChunk(II)Lnet/minecraft/core/world/chunk/Chunk;", at = @At("HEAD"))
-	private void overrideChunks(final int chunkX, final int chunkZ, final CallbackInfoReturnable<Chunk> cir){
-		this.chunkLoadOverride = MoonSteel.forceChunkLoads;
-	}
+    @Inject(method = "provideChunk(II)Lnet/minecraft/core/world/chunk/Chunk;", at = @At("HEAD"))
+    private void overrideChunks(final int chunkX, final int chunkZ, final CallbackInfoReturnable<Chunk> cir) {
+        this.chunkLoadOverride = MoonSteel.forceChunkLoads;
+    }
 }

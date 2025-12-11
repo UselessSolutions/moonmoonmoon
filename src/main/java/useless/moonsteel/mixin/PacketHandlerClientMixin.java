@@ -12,17 +12,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import useless.moonsteel.MoonSteel;
 import useless.moonsteel.interfaces.IStarBackpack;
 
-@Mixin(value= PacketHandlerClient.class,remap = false)
+@Mixin(value = PacketHandlerClient.class, remap = false)
 public abstract class PacketHandlerClientMixin {
-	@Final
-	@Shadow
-	private Minecraft mc;
+    @Final
+    @Shadow
+    private Minecraft mc;
 
-	@Inject(method="handleOpenWindow",at=@At("TAIL"))
-	public void inject(final PacketContainerOpen packetContainerOpen, final CallbackInfo ci) {
-		if (packetContainerOpen.inventoryType == MoonSteel.GUI_ID) {
-			((IStarBackpack)(this.mc.thePlayer)).moonsteel$displayGuiStarBackpack();
-			this.mc.thePlayer.craftingInventory.containerId = packetContainerOpen.windowId;
-		}
-	}
+    @Inject(method = "handleOpenWindow", at = @At("TAIL"))
+    public void inject(final PacketContainerOpen packetContainerOpen, final CallbackInfo ci) {
+        if (packetContainerOpen.inventoryType == MoonSteel.GUI_ID) {
+            ((IStarBackpack) (this.mc.thePlayer)).moonsteel$displayGuiStarBackpack();
+            this.mc.thePlayer.craftingInventory.containerId = packetContainerOpen.windowId;
+        }
+    }
 }

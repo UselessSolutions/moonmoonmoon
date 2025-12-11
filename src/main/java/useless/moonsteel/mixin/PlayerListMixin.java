@@ -11,8 +11,8 @@ import useless.moonsteel.interfaces.IStarBackpack;
 
 @Mixin(value = PlayerList.class, remap = false)
 public class PlayerListMixin {
-	@Inject(method = "recreatePlayerEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;transferAllContents(Lnet/minecraft/core/player/inventory/container/ContainerInventory;)V", shift = At.Shift.AFTER))
-	public void keepBackpackMP(final PlayerServer previousPlayer, final int i, final CallbackInfoReturnable<PlayerServer> cir, @Local(name = "newPlayer") final PlayerServer newPlayer){
-		((IStarBackpack)newPlayer).moonsteel$setStarBackpackInventory(((IStarBackpack)previousPlayer).moonsteel$getStarBackpackInventory());
-	}
+    @Inject(method = "recreatePlayerEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/player/inventory/container/ContainerInventory;transferAllContents(Lnet/minecraft/core/player/inventory/container/ContainerInventory;)V", shift = At.Shift.AFTER))
+    public void keepBackpackMP(final PlayerServer previousPlayer, final int i, final CallbackInfoReturnable<PlayerServer> cir, @Local(name = "newPlayer") final PlayerServer newPlayer) {
+        ((IStarBackpack) newPlayer).moonsteel$setStarBackpackInventory(((IStarBackpack) previousPlayer).moonsteel$getStarBackpackInventory());
+    }
 }

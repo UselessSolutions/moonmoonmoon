@@ -17,42 +17,45 @@ import useless.moonsteel.interfaces.ITeleporter;
 
 @Mixin(value = Player.class, remap = false)
 public abstract class PlayerMixin extends Mob implements IStarBackpack, ITeleporter {
-	@Unique
-	public StarBackpackInventory starBackpackInventory;
+    @Unique
+    public StarBackpackInventory starBackpackInventory;
 
-	public PlayerMixin(@Nullable final World world) {
-		super(world);
-	}
+    protected PlayerMixin(@Nullable final World world) {
+        super(world);
+    }
 
-	@Inject(method = "<init>(Lnet/minecraft/core/world/World;)V", at = @At("TAIL"))
-	private void createBackpack(final World world, final CallbackInfo ci){
-		this.starBackpackInventory = new StarBackpackInventory((Player) (Object)this);
-	}
-	@Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-	private void addData(final CompoundTag tag, final CallbackInfo ci){
-		tag.put("moonsteel$InventoryStardust", this.starBackpackInventory.writeToNBT(new ListTag()));
-	}
-	@Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-	private void loadData(final CompoundTag tag, final CallbackInfo ci){
-		this.starBackpackInventory.readFromNBT(tag.getList("moonsteel$InventoryStardust"));
-	}
-	@Override
-	public StarBackpackInventory moonsteel$getStarBackpackInventory() {
-		return this.starBackpackInventory;
-	}
+    @Inject(method = "<init>(Lnet/minecraft/core/world/World;)V", at = @At("TAIL"))
+    private void createBackpack(final World world, final CallbackInfo ci) {
+        this.starBackpackInventory = new StarBackpackInventory((Player) (Object) this);
+    }
 
-	@Override
-	public void moonsteel$setStarBackpackInventory(final StarBackpackInventory backpackInventory) {
-		this.starBackpackInventory = backpackInventory;
-	}
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addData(final CompoundTag tag, final CallbackInfo ci) {
+        tag.put("moonsteel$InventoryStardust", this.starBackpackInventory.writeToNBT(new ListTag()));
+    }
 
-	@Override
-	public void moonsteel$displayGuiStarBackpack() {
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void loadData(final CompoundTag tag, final CallbackInfo ci) {
+        this.starBackpackInventory.readFromNBT(tag.getList("moonsteel$InventoryStardust"));
+    }
 
-	}
+    @Override
+    public StarBackpackInventory moonsteel$getStarBackpackInventory() {
+        return this.starBackpackInventory;
+    }
 
-	@Override
-	public void moonsteel$teleport(final double x, final double y, final double z) {
-		setPos(x, y + this.bbHeight, z);
-	}
+    @Override
+    public void moonsteel$setStarBackpackInventory(final StarBackpackInventory backpackInventory) {
+        this.starBackpackInventory = backpackInventory;
+    }
+
+    @Override
+    public void moonsteel$displayGuiStarBackpack() {
+
+    }
+
+    @Override
+    public void moonsteel$teleport(final double x, final double y, final double z) {
+        setPos(x, y + this.bbHeight, z);
+    }
 }

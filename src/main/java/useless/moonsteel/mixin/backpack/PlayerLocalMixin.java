@@ -11,17 +11,17 @@ import useless.moonsteel.GuiStarBackpack;
 
 @Mixin(value = PlayerLocal.class, remap = false)
 public class PlayerLocalMixin extends PlayerMixin {
-	@Shadow
-	protected Minecraft mc;
-	@Unique
-	public PlayerLocal thisAs = (PlayerLocal) (Object)this;
+    @Shadow
+    protected Minecraft mc;
+    @Unique
+    public PlayerLocal thisAs = (PlayerLocal) (Object) this;
 
-	public PlayerLocalMixin(@Nullable World world) {
-		super(world);
-	}
+    public PlayerLocalMixin(@Nullable World world) {
+        super(world);
+    }
 
-	@Override
-	public void moonsteel$displayGuiStarBackpack() {
-		this.mc.displayScreen(new GuiStarBackpack(this.thisAs));
-	}
+    @Override
+    public void moonsteel$displayGuiStarBackpack() {
+        this.mc.displayScreen(new GuiStarBackpack(this.thisAs));
+    }
 }

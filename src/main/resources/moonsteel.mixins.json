@@ -1,8 +1,10 @@
 {
   "required": true,
-  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
   "package": "useless.moonsteel.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_${java}",
   "plugin": "useless.moonsteel.MoonSteelMixinPlugin",
   "injectors": {
     "defaultRequire": 1

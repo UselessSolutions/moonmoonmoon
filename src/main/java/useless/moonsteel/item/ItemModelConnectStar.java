@@ -11,16 +11,18 @@ import org.jetbrains.annotations.Nullable;
 import useless.moonsteel.MoonSteel;
 
 public class ItemModelConnectStar extends ItemModelStandard {
-	private static final IconCoordinate star_connected = TextureRegistry.getTexture(MoonSteel.MOD_ID + ":item/connected_star");
-	public ItemModelConnectStar(final Item item, final String namespace) {
-		super(item, namespace);
-	}
-	@NotNull
-	@Override
-	public IconCoordinate getIcon(@Nullable final Entity entity, final ItemStack itemStack) {
-		if (itemStack.getData().getBoolean("moonsteel$has_location")){
-			return star_connected;
-		}
-		return super.getIcon(entity, itemStack);
-	}
+    private static final IconCoordinate star_connected = TextureRegistry.getTexture(MoonSteel.MOD_ID + ":item/connected_star");
+
+    public ItemModelConnectStar(final Item item, final String namespace) {
+        super(item, namespace);
+    }
+
+    @NotNull
+    @Override
+    public IconCoordinate getIcon(@Nullable final Entity entity, final ItemStack itemStack) {
+        if (itemStack.getData().getBoolean("moonsteel$has_location")) {
+            return star_connected;
+        }
+        return super.getIcon(entity, itemStack);
+    }
 }
