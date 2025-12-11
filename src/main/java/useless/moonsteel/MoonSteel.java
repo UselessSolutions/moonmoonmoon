@@ -8,15 +8,12 @@ import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tosutosu.betterwithbackpacks.ModItems;
-import turniplabs.halplibe.helper.CreativeHelper;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.util.ConfigHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
 import useless.moonsteel.block.TileEntityStellarRewinder;
 
 import java.util.Properties;
-
 
 public class MoonSteel implements ModInitializer, GameStartEntrypoint {
     public static final String MOD_ID = "moonsteel";
@@ -63,9 +60,6 @@ public class MoonSteel implements ModInitializer, GameStartEntrypoint {
         EntityHelper.createTileEntity(TileEntityStellarRewinder.class, NamespaceID.getPermanent(MOD_ID, "moonsteel$stellar_rewinder"), "moonsteel$stellar_rewinder");
         MoonSteelBlocks.init();
         MoonSteelItems.init();
-        if (backpackPresent) {
-            CreativeHelper.setParent(MoonSteelItems.BACKPACK_COSMIC.getDefaultStack(), ModItems.diamondBackpack.getDefaultStack());
-        }
     }
 
     @Override

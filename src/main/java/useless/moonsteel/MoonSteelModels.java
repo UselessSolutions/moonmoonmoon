@@ -1,5 +1,7 @@
 package useless.moonsteel;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.TileEntityRenderDispatcher;
 import net.minecraft.client.render.block.color.BlockColorDispatcher;
@@ -19,6 +21,7 @@ import useless.moonsteel.item.ItemModelConnectStar;
 
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
+@Environment(EnvType.CLIENT)
 public class MoonSteelModels implements ModelEntrypoint {
     @Override
     public void initBlockModels(final BlockModelDispatcher dispatcher) {
@@ -54,7 +57,6 @@ public class MoonSteelModels implements ModelEntrypoint {
         dispatcher.addDispatch(makeModel(MoonSteelItems.ARMOR_BOOTS_MOONSTEEL, "moonsteel_boots"));
         dispatcher.addDispatch(makeModel(MoonSteelItems.STAR_FALLEN, "fallen_star").setFullBright());
         dispatcher.addDispatch(setIcon(new ItemModelConnectStar(MoonSteelItems.STAR_CONNECTED, null), MOD_ID + ":item/connected_star_off").setFullBright());
-        dispatcher.addDispatch(makeModel(MoonSteelItems.BACKPACK_COSMIC, "starpack"));
     }
 
     public static @NotNull ItemModelStandard makeModel(@NotNull final Item item, @NotNull final String textureValue) {

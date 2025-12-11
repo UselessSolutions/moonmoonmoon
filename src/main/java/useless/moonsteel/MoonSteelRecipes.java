@@ -6,7 +6,6 @@ import net.minecraft.core.crafting.LookupFuelFurnaceBlast;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
-import tosutosu.betterwithbackpacks.ModItems;
 import turniplabs.halplibe.helper.RecipeBuilder;
 import turniplabs.halplibe.util.RecipeEntrypoint;
 
@@ -139,17 +138,6 @@ public class MoonSteelRecipes implements RecipeEntrypoint {
             .addInput('I', Items.INGOT_IRON)
             .addInput('C', MoonSteelItems.STAR_CONNECTED)
             .create("stellar_rewinder", MoonSteelBlocks.STELLAR_REWINDER.getDefaultStack());
-
-        if (MoonSteel.backpackPresent) {
-            RecipeBuilder.Shaped(MOD_ID)
-                .setShape(
-                    "MMM",
-                    "MSM",
-                    "MMM")
-                .addInput('M', MoonSteelItems.INGOT_MOONSTEEL)
-                .addInput('S', ModItems.goldBackpack)
-                .create("cosmic_backpack", MoonSteelItems.BACKPACK_COSMIC.getDefaultStack());
-        }
 
         RecipeBuilder.BlastFurnace(MOD_ID)
             .setInput(MoonSteelItems.INGOT_MOONSTEEL_CRUDE)

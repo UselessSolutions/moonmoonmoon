@@ -1,5 +1,7 @@
 package useless.moonsteel.fx;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.ParticleFlame;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.tessellator.Tessellator;
@@ -9,6 +11,7 @@ import net.minecraft.core.world.World;
 
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
+@Environment(EnvType.CLIENT)
 public class ParticleStar extends ParticleFlame {
     private static final IconCoordinate star = TextureRegistry.getTexture(MOD_ID + ":item/particle_star");
     public float sizeO;

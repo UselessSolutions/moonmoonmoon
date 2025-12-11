@@ -1,6 +1,6 @@
-package useless.moonsteel.interfaces;
+package useless.moonsteel.compat.backpacks.interfaces;
 
-import useless.moonsteel.StarBackpackInventory;
+import useless.moonsteel.compat.backpacks.StarBackpackInventory;
 
 public interface IStarBackpack {
     StarBackpackInventory moonsteel$getStarBackpackInventory();

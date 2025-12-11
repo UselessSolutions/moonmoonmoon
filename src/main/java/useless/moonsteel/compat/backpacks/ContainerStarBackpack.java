@@ -1,10 +1,10 @@
-package useless.moonsteel;
+package useless.moonsteel.compat.backpacks;
 
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
-import useless.moonsteel.interfaces.IStarBackpack;
+import useless.moonsteel.compat.backpacks.interfaces.IStarBackpack;
 
 import java.util.Collections;
 import java.util.List;

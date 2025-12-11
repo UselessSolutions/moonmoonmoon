@@ -1,5 +1,7 @@
 package useless.moonsteel.fx;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.entity.particle.ParticleSmoke;
 import net.minecraft.client.render.LightmapHelper;
 import net.minecraft.client.render.tessellator.Tessellator;
@@ -10,6 +12,7 @@ import net.minecraft.core.world.World;
 
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
+@Environment(EnvType.CLIENT)
 public class ParticleMagicSmoke extends ParticleSmoke {
     private static final IconCoordinate smoke = TextureRegistry.getTexture(MOD_ID + ":item/particle_magicsmoke");
     public float sizeO;

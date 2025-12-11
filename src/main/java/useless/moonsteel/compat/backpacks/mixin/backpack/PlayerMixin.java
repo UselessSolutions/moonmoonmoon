@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin.backpack;
+package useless.moonsteel.compat.backpacks.mixin.backpack;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import useless.moonsteel.StarBackpackInventory;
-import useless.moonsteel.interfaces.IStarBackpack;
+import useless.moonsteel.compat.backpacks.StarBackpackInventory;
+import useless.moonsteel.compat.backpacks.interfaces.IStarBackpack;
 import useless.moonsteel.interfaces.ITeleporter;
 
 @Mixin(value = Player.class, remap = false)

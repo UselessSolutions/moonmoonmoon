@@ -1,4 +1,4 @@
-package useless.moonsteel;
+package useless.moonsteel.compat.backpacks;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
@@ -7,6 +7,8 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.InventorySorter;
 import net.minecraft.core.player.inventory.container.Container;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
+
+import static useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility.IS_BACKPACK_LOADED;
 
 public class StarBackpackInventory implements Container {
     public static int starBackpackSize = 18;
@@ -104,8 +106,11 @@ public class StarBackpackInventory implements Container {
             return false;
         } else {
             ItemStack heldItem = entityPlayer.getHeldItem();
-            return heldItem.getItem().equals(MoonSteelItems.BACKPACK_COSMIC);
+            if (IS_BACKPACK_LOADED) {
+                return heldItem.getItem().equals(MoonSteelBackpackItems.BACKPACK_COSMIC);
+            }
         }
+        return false;
     }
 
     @Override

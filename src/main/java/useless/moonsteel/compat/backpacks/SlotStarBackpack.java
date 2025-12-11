@@ -1,4 +1,4 @@
-package useless.moonsteel;
+package useless.moonsteel.compat.backpacks;
 
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.container.Container;

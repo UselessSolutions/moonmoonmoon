@@ -1,6 +1,8 @@
-package useless.moonsteel.mixin.backpack;
+package useless.moonsteel.compat.backpacks.mixin.backpack;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.PlayerLocal;
 import net.minecraft.core.entity.player.Player;
@@ -9,8 +11,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import useless.moonsteel.interfaces.IStarBackpack;
+import useless.moonsteel.compat.backpacks.interfaces.IStarBackpack;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = Minecraft.class, remap = false)
 public class MinecraftMixin {
     @Shadow

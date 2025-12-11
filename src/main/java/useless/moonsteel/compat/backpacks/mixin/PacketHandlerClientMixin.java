@@ -1,5 +1,7 @@
-package useless.moonsteel.mixin;
+package useless.moonsteel.compat.backpacks.mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.net.handler.PacketHandlerClient;
 import net.minecraft.core.net.packet.PacketContainerOpen;
@@ -10,8 +12,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import useless.moonsteel.MoonSteel;
-import useless.moonsteel.interfaces.IStarBackpack;
+import useless.moonsteel.compat.backpacks.interfaces.IStarBackpack;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = PacketHandlerClient.class, remap = false)
 public abstract class PacketHandlerClientMixin {
     @Final

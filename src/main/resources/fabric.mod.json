@@ -8,7 +8,8 @@
     "Useless"
   ],
   "contributors": [
-    "BigJango"
+    "BigJango",
+    "LukeisStuff"
   ],
   "contact": {
     "homepage": "https://github.com/UselessSolutions/moonmoonmoon",
@@ -22,13 +23,16 @@
       "useless.moonsteel.MoonSteel"
     ],
     "beforeGameStart": [
-      "useless.moonsteel.MoonSteel"
+      "useless.moonsteel.MoonSteel",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
     ],
     "afterGameStart": [
-      "useless.moonsteel.MoonSteel"
+      "useless.moonsteel.MoonSteel",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
     ],
     "recipesReady": [
-      "useless.moonsteel.MoonSteelRecipes"
+      "useless.moonsteel.MoonSteelRecipes",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
     ],
     "beforeClientStart": [
       "useless.moonsteel.MoonSteelClient"
@@ -37,10 +41,12 @@
       "useless.moonsteel.MoonSteelClient"
     ],
     "initModels": [
-      "useless.moonsteel.MoonSteelModels"
+      "useless.moonsteel.MoonSteelModels",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
     ],
     "preLaunch": [
-      "useless.moonsteel.compat.deep.MoonSteelDeepCompatibility"
+      "useless.moonsteel.compat.deep.MoonSteelDeepCompatibility",
+      "useless.moonsteel.compat.backpacks.MoonSteelBackpackCompatibility"
     ]
   },
   "mixins": [

@@ -62,9 +62,6 @@ lwjgl {
 dependencies {
 	minecraft("::${libs.versions.bta.get()}")
 
-	compileOnly(libs.btwaila)
-	compileOnly(libs.commandly)
-
 	runtimeOnly(libs.clientJar)
 	implementation(libs.loader)
 	implementation(libs.halplibe)
@@ -72,9 +69,14 @@ dependencies {
 	implementation(libs.legacyLwjgl)
 
     compileOnly(libs.dragonfly)
+
     compileOnly(libs.catalyst.core)
     compileOnly(libs.catalyst.effects)
+
     compileOnly(libs.uselessNumerical.get().let { "${it.group}:${it.name}:${it.version}-${libs.versions.bta.get()}" })
+
+    compileOnly(libs.btwaila)
+    compileOnly(libs.commandly)
 
     compileOnly(libs.deep)
 

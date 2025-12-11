@@ -1,11 +1,14 @@
-package useless.moonsteel;
+package useless.moonsteel.compat.backpacks;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.lang.I18n;
 import org.lwjgl.opengl.GL11;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
 
+@Environment(EnvType.CLIENT)
 public class GuiStarBackpack extends ScreenContainerAbstract {
     private int GUIx;
     private int GUIy;
@@ -23,7 +26,7 @@ public class GuiStarBackpack extends ScreenContainerAbstract {
         this.GUIx = (this.width - this.xSize) / 2;
         this.GUIy = (this.height - this.ySize) / 2;
         this.slotsNum = this.backpack.backpackInventory.getContainerSize();
-        this.rows = (int) Math.ceil( this.slotsNum / 9.0);
+        this.rows = (int) Math.ceil(this.slotsNum / 9.0);
         super.init();
     }
 
