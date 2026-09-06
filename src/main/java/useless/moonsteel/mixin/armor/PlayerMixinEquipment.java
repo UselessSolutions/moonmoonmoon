@@ -1,8 +1,7 @@
-package useless.moonsteel.mixin.entity;
+package useless.moonsteel.mixin.armor;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.enums.HumanArmorShape;
-import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,7 +9,7 @@ import useless.moonsteel.MoonSteelItems;
 import useless.moonsteel.interfaces.IMoonGrav;
 
 @Mixin(value = Player.class, remap = false)
-public class PlayerMixin implements IMoonGrav {
+public class PlayerMixinEquipment implements IMoonGrav {
 	@Shadow
 	public ContainerInventory inventory;
 

@@ -10,13 +10,13 @@ import org.spongepowered.asm.mixin.Unique;
 import useless.moonsteel.backpack.GuiStarBackpack;
 
 @Mixin(value = PlayerLocal.class, remap = false)
-public class PlayerLocalMixin extends PlayerMixin {
+public class PlayerLocalMixinGui extends PlayerMixin {
 	@Shadow
 	protected Minecraft mc;
 	@Unique
 	public PlayerLocal thisAs = (PlayerLocal) (Object)this;
 
-	public PlayerLocalMixin(@Nullable World world) {
+	public PlayerLocalMixinGui(@Nullable World world) {
 		super(world);
 	}
 

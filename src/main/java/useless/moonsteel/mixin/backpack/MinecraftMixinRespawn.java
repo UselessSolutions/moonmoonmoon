@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import useless.moonsteel.interfaces.IStarBackpack;
 
 @Mixin(value = Minecraft.class, remap = false)
-public class MinecraftMixin {
+public class MinecraftMixinRespawn {
 	@Shadow
 	public PlayerLocal thePlayer;
 

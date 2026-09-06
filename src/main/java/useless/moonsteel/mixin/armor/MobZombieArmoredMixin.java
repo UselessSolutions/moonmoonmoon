@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin.entity;
+package useless.moonsteel.mixin.armor;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.entity.EntityItem;

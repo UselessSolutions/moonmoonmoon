@@ -2,6 +2,7 @@ package useless.moonsteel;
 
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.client.render.block.model.BlockModelStandard;
+import net.minecraft.client.render.block.model.generic.BlockModelGeneric;
 import net.minecraft.client.render.block.model.generic.BlockModelGenericTorch;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import useless.moonsteel.block.BlockModelStellarRewinder;
 import useless.moonsteel.item.ItemModelConnectStar;
 
+import static net.minecraft.client.render.block.model.BlockModelDispatcher.loadDataModel;
 import static net.minecraft.client.render.item.model.ItemModelDispatcher.*;
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
@@ -23,13 +25,14 @@ public class MoonSteelModels {
 		final Side[] S_TB = {Side.TOP, Side.BOTTOM};
 		final Side[] S_SIDES = {Side.NORTH, Side.EAST, Side.SOUTH, Side.WEST};
 		//TODO replace with BlockModelGeneric
-		dispatcher.addDispatch(new BlockModelStandard<>(MoonSteelBlocks.BLOCK_MOONSTEEL));
+		dispatcher.addDispatch(new BlockModelGeneric<>(MoonSteelBlocks.BLOCK_MOONSTEEL, loadDataModel(MOD_ID + "block/moonsteel")));
+//		dispatcher.addDispatch(new BlockModelStandard<>(MoonSteelBlocks.BLOCK_MOONSTEEL))
 //			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/moonsteel_block_side", S_SIDES)
 //			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/moonsteel_block_top", Side.TOP)
 //			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/moonsteel_block_bottom", Side.BOTTOM));
 
 		// TODO especialy for this, replace the key
-		dispatcher.addDispatch(new BlockModelGenericTorch<>(MoonSteelBlocks.TORCH_STAR, ""));
+		dispatcher.addDispatch(new BlockModelGenericTorch<>(MoonSteelBlocks.TORCH_STAR, MOD_ID + ":block/start_torch"));
 //			.setAllTextures(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/startorch"));
 
 		// TODO relace this by a generic model

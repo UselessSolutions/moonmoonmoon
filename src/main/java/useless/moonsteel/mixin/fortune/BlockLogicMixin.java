@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin;
+package useless.moonsteel.mixin.fortune;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;

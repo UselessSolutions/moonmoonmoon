@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin.entity;
+package useless.moonsteel.mixin.armor;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;

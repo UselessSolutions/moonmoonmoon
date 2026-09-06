@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin;
+package useless.moonsteel.mixin.chunkprovider;
 
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.pos.ChunkPosc;

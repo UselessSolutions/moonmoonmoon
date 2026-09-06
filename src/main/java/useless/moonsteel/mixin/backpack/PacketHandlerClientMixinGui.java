@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin;
+package useless.moonsteel.mixin.backpack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.net.handler.PacketHandlerClient;
@@ -13,7 +13,7 @@ import useless.moonsteel.MoonSteel;
 import useless.moonsteel.interfaces.IStarBackpack;
 
 @Mixin(value= PacketHandlerClient.class,remap = false)
-public abstract class PacketHandlerClientMixin {
+public abstract class PacketHandlerClientMixinGui {
 	@Final
 	@Shadow
 	private Minecraft mc;

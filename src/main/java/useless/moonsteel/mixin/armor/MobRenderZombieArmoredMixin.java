@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin;
+package useless.moonsteel.mixin.armor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.TextureManager;

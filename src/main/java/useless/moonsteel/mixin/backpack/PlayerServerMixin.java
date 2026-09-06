@@ -1,16 +1,14 @@
-package useless.moonsteel.mixin;
+package useless.moonsteel.mixin.backpack;
 
 import net.minecraft.core.net.packet.PacketContainerOpen;
 import net.minecraft.core.world.World;
 import net.minecraft.server.entity.player.PlayerServer;
-import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import useless.moonsteel.ContainerStarBackpack;
 import useless.moonsteel.MoonSteel;
-import useless.moonsteel.mixin.backpack.PlayerMixin;
 
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixin extends PlayerMixin {
@@ -23,8 +21,6 @@ public abstract class PlayerServerMixin extends PlayerMixin {
 
 	@Shadow
 	private int currentWindowId;
-	@Shadow
-	public PacketHandlerServer playerNetServerHandler;
 	@Unique
 	public PlayerServer thisAs = (PlayerServer) (Object)this;
 

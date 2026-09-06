@@ -12,10 +12,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import useless.moonsteel.backpack.StarBackpackInventory;
 import useless.moonsteel.interfaces.IStarBackpack;
-import useless.moonsteel.interfaces.ITeleporter;
 
 @Mixin(value = Player.class, remap = false)
-public abstract class PlayerMixin extends Mob implements IStarBackpack, ITeleporter {
+public abstract class PlayerMixin extends Mob implements IStarBackpack {
 	@Unique
 	public StarBackpackInventory starBackpackInventory;
 
@@ -28,10 +27,6 @@ public abstract class PlayerMixin extends Mob implements IStarBackpack, ITelepor
 
 	}
 
-	@Override
-	public void moonsteel$teleport(final double x, final double y, final double z) {
-		setPos(x, y + this.bbHeight, z);
-	}
 	@Inject(method = "<init>(Lnet/minecraft/core/world/World;)V", at = @At("TAIL"))
 	private void createBackpack(final World world, final CallbackInfo ci){
 		this.starBackpackInventory = new StarBackpackInventory((Player) (Object)this);

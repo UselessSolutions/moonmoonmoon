@@ -14,7 +14,7 @@ import useless.moonsteel.MoonSteelItems;
 import java.util.Random;
 
 @Mixin(value = WorldFeatureLabyrinth.class, remap = false)
-public class WorldFeatureLabyrinthMixin {
+public class WorldFeatureLabyrinthMixinRewards {
 	@Shadow
 	public WeightedRandomBag<WeightedRandomLootObject> chestLoot;
 
