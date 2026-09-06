@@ -1,6 +1,7 @@
 package useless.moonsteel.mixin.entity;
 
 import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.enums.HumanArmorShape;
 import net.minecraft.core.item.IArmorItem;
 import net.minecraft.core.player.inventory.container.ContainerInventory;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,10 +17,10 @@ public class PlayerMixin implements IMoonGrav {
 	@Override
 	public double moonsteel$getGravScalar() {
 		double scalar = 0d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_HEAD) != null && inventory.armorItemInSlot(IArmorItem.PIECE_HEAD).getItem() == MoonSteelItems.ARMOR_HELMET_MOONSTEEL) scalar += 0.167d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_CHEST) != null && inventory.armorItemInSlot(IArmorItem.PIECE_CHEST).getItem() == MoonSteelItems.ARMOR_CHESTPLATE_MOONSTEEL) scalar += 0.334d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_LEGS) != null && inventory.armorItemInSlot(IArmorItem.PIECE_LEGS).getItem() == MoonSteelItems.ARMOR_LEGGINGS_MOONSTEEL) scalar += 0.167d;
-		if (inventory.armorItemInSlot(IArmorItem.PIECE_BOOTS) != null && inventory.armorItemInSlot(IArmorItem.PIECE_BOOTS).getItem() == MoonSteelItems.ARMOR_BOOTS_MOONSTEEL) scalar += 0.334d;
+		if (inventory.armorItemInSlot(HumanArmorShape.HEAD) != null 	&& inventory.armorItemInSlot(HumanArmorShape.HEAD).getItem() 	== MoonSteelItems.ARMOR_HELMET_MOONSTEEL) scalar += 0.167d;
+		if (inventory.armorItemInSlot(HumanArmorShape.CHEST) != null 	&& inventory.armorItemInSlot(HumanArmorShape.CHEST).getItem() 	== MoonSteelItems.ARMOR_CHESTPLATE_MOONSTEEL) scalar += 0.334d;
+		if (inventory.armorItemInSlot(HumanArmorShape.LEGS) != null 	&& inventory.armorItemInSlot(HumanArmorShape.LEGS).getItem() 	== MoonSteelItems.ARMOR_LEGGINGS_MOONSTEEL) scalar += 0.167d;
+		if (inventory.armorItemInSlot(HumanArmorShape.BOOTS) != null 	&& inventory.armorItemInSlot(HumanArmorShape.BOOTS).getItem() 	== MoonSteelItems.ARMOR_BOOTS_MOONSTEEL) scalar += 0.334d;
 		return (1/(scalar + 1));
 	}
 }

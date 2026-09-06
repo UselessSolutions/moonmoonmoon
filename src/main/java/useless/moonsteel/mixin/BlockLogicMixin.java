@@ -8,6 +8,7 @@ import net.minecraft.core.enums.EnumDropCause;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.tool.ItemTool;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,16 +29,14 @@ public abstract class BlockLogicMixin {
 	public Block<?> block;
 
 	@Shadow
-	public abstract void dropBlockWithCause(World world, EnumDropCause cause, int x, int y, int z, int meta, TileEntity tileEntity, Player player);
+	public abstract void dropWithCause(World world, EnumDropCause cause, TilePosc tilePosc, int meta, TileEntity tileEntity, Player player);
 
-	@Inject(method = "harvestBlock(Lnet/minecraft/core/world/World;Lnet/minecraft/core/entity/player/Player;IIIILnet/minecraft/core/block/entity/TileEntity;)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogic;dropBlockWithCause(Lnet/minecraft/core/world/World;Lnet/minecraft/core/enums/EnumDropCause;IIIILnet/minecraft/core/block/entity/TileEntity;Lnet/minecraft/core/entity/player/Player;)V",
-			shift = At.Shift.AFTER))
-	private void multiplyHarvest(final World world, final Player entityplayer, final int x, final int y, final int z, final int meta, final TileEntity tileEntity, final CallbackInfo ci){
+	@Inject(method = "onHarvest", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/block/BlockLogic;dropWithCause(Lnet/minecraft/core/world/World;Lnet/minecraft/core/enums/EnumDropCause;Lnet/minecraft/core/world/pos/TilePosc;ILnet/minecraft/core/block/entity/TileEntity;Lnet/minecraft/core/entity/player/Player;)V"))
+	private void multiplyHarvest(World world, Player entityplayer, TilePosc tilePos, int data, TileEntity tileEntity, CallbackInfo ci){
 		final ItemStack heldItemStack = entityplayer.inventory.getCurrentItem();
-		if (heldItemStack != null && heldItemStack.getItem() instanceof ItemTool && ((ItemTool) heldItemStack.getItem()).getMaterial() == MoonSteelItems.moonSteelTool && MoonSteelBlocks.canBeFortuned(this.block)){
+		if (heldItemStack != null && heldItemStack.getItem() instanceof ItemTool itemTool && itemTool.getMaterial() == MoonSteelItems.MOON_STEEL_TOOL && MoonSteelBlocks.canBeFortuned(this.block)){
 			for (int i = 0; i < world.rand.nextInt(MoonSteel.FORTUNE_AMOUNT); i++) {
-				dropBlockWithCause(world, EnumDropCause.PROPER_TOOL, x, y, z, meta, tileEntity, entityplayer);
+				dropWithCause(world, EnumDropCause.PROPER_TOOL, tilePos, data, tileEntity, entityplayer);
 			}
 		}
 	}

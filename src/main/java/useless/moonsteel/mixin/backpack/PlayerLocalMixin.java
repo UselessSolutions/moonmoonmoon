@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import useless.moonsteel.GuiStarBackpack;
+import useless.moonsteel.backpack.GuiStarBackpack;
 
 @Mixin(value = PlayerLocal.class, remap = false)
 public class PlayerLocalMixin extends PlayerMixin {

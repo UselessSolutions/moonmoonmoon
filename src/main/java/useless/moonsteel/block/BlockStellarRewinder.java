@@ -7,6 +7,9 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import useless.moonsteel.MoonSteelItems;
 
 public class BlockStellarRewinder extends BlockLogicRotatable {
@@ -17,10 +20,10 @@ public class BlockStellarRewinder extends BlockLogicRotatable {
 	}
 
 	@Override
-	public boolean onBlockRightClicked(World world, int x, int y, int z, Player player, Side side, double xHit, double yHit) {
+	public boolean onInteracted(@NotNull World world, @NotNull TilePosc tilePos, @NotNull Player player, @Nullable Side side, double xHit, double yHit) {
 		ItemStack heldItem = player.getHeldItem();
-		TileEntityStellarRewinder rewinder = (TileEntityStellarRewinder) world.getTileEntity(x,y,z);
-		if (heldItem != null && heldItem.getItem() == MoonSteelItems.STAR_CONNECTED){
+		TileEntityStellarRewinder rewinder = (TileEntityStellarRewinder) world.getTileEntity(tilePos);
+		if (heldItem != null && heldItem.getItem() == MoonSteelItems.STAR_CONNECTED && rewinder != null){
 			rewinder.linkStar(heldItem);
 			return true;
 		}

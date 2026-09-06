@@ -24,7 +24,7 @@ public abstract class MobMixin extends Entity {
 	@Shadow
 	protected abstract void dropDeathItems();
 
-	public MobMixin(final World world) {
+	protected MobMixin(final World world) {
 		super(world);
 	}
 
@@ -54,9 +54,9 @@ public abstract class MobMixin extends Entity {
 
 	@Inject(method = "onDeath(Lnet/minecraft/core/entity/Entity;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/core/entity/Mob;dropDeathItems()V"))
 	private void multiplyDrop(final Entity entity, final CallbackInfo ci){
-		if (entity instanceof Player){
-			final ItemStack heldStack = ((Player) entity).getHeldItem();
-			if (heldStack != null && heldStack.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) heldStack.getItem()).getMaterial() == MoonSteelItems.moonSteelTool){
+		if (entity instanceof Player player){
+			final ItemStack heldStack = player.getHeldItem();
+			if (heldStack != null && heldStack.getItem() instanceof ItemToolSword && ((ItemToolSwordAccessor) heldStack.getItem()).getMaterial() == MoonSteelItems.MOON_STEEL_TOOL){
 				for (int i = 0; i < this.random.nextInt(MoonSteel.LOOTING_AMOUNT); i++) {
 					dropDeathItems();
 				}

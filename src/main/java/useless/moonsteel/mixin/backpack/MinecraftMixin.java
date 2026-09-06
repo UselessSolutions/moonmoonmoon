@@ -18,6 +18,8 @@ public class MinecraftMixin {
 
 	@Inject(method = "respawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/player/PlayerLocal;setGamemode(Lnet/minecraft/core/player/gamemode/Gamemode;)V", shift = At.Shift.AFTER))
 	public void keepBackpack(boolean flag, int i, CallbackInfo ci, @Local Player previousPlayer){
-		((IStarBackpack)thePlayer).moonsteel$setStarBackpackInventory(((IStarBackpack)previousPlayer).moonsteel$getStarBackpackInventory());
+		IStarBackpack currentWearer = (IStarBackpack) thePlayer;
+		IStarBackpack previousWearer = (IStarBackpack) previousPlayer;
+		currentWearer.moonsteel$setStarBackpackInventory(previousWearer.moonsteel$getStarBackpackInventory());
 	}
 }

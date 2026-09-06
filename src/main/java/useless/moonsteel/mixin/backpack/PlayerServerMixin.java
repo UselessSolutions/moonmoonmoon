@@ -13,7 +13,7 @@ import useless.moonsteel.MoonSteel;
 
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixin extends PlayerMixin {
-	public PlayerServerMixin(@Nullable World world) {
+	protected PlayerServerMixin(@Nullable World world) {
 		super(world);
 	}
 
@@ -36,9 +36,9 @@ public abstract class PlayerServerMixin extends PlayerMixin {
 			.sendPacket(
 				new PacketContainerOpen(this.currentWindowId, MoonSteel.GUI_ID, "moonsteel$StarBackpack", backpack.backpackInventory.getContainerSize())
 			);
-		this.thisAs.craftingInventory = backpack;
-		this.thisAs.craftingInventory.containerId = this.currentWindowId;
-		this.thisAs.craftingInventory.addSlotListener(this.thisAs);
+		this.thisAs.containerMenu = backpack;
+		this.thisAs.containerMenu.containerId = this.currentWindowId;
+		this.thisAs.containerMenu.addSlotListener(this.thisAs);
 	}
 
 	@Override

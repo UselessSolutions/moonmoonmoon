@@ -1,11 +1,10 @@
-package useless.moonsteel.item;
+package useless.moonsteel.backpack;
 
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
 import tosutosu.betterwithbackpacks.item.ItemBackpack;
-import useless.moonsteel.StarBackpackInventory;
 import useless.moonsteel.interfaces.IStarBackpack;
 
 public class ItemStarBackpack extends ItemBackpack {

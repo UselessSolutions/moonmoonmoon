@@ -4,6 +4,8 @@ import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.core.player.inventory.slot.Slot;
+import useless.moonsteel.backpack.SlotStarBackpack;
+import useless.moonsteel.backpack.StarBackpackInventory;
 import useless.moonsteel.interfaces.IStarBackpack;
 
 import java.util.List;

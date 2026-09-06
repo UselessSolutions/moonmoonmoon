@@ -1,18 +1,18 @@
 package useless.moonsteel.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.client.world.chunk.provider.ChunkProviderStatic;
+import net.minecraft.core.world.pos.ChunkPosc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import useless.moonsteel.MoonSteel;
 
 @Mixin(value = ChunkProviderStatic.class, remap = false)
 public class ChunkProviderStaticMixin {
-	@Inject(method = "canChunkExist(II)Z", at = @At("HEAD"), cancellable = true)
-	private void overrideChunk(final int chunkX, final int chunkZ, final CallbackInfoReturnable<Boolean> cir){
-		if (MoonSteel.forceChunkLoads){
-			cir.setReturnValue(true);
-		}
+
+	@WrapMethod(method = "canChunkExist")
+	private boolean overrideChunk(ChunkPosc chunkPos, Operation<Boolean> original){
+		return MoonSteel.forceChunkLoads;
 	}
 }

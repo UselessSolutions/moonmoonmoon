@@ -2,6 +2,7 @@ package useless.moonsteel;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.block.entity.TileEntityDispatcher;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
@@ -9,18 +10,22 @@ import net.minecraft.core.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tosutosu.betterwithbackpacks.ModItems;
+import turniplabs.halplibe.HalpLibe;
+import turniplabs.halplibe.event.defs.CommonEvents;
 import turniplabs.halplibe.helper.CreativeHelper;
 import turniplabs.halplibe.helper.EntityHelper;
 import turniplabs.halplibe.util.ConfigHandler;
 import turniplabs.halplibe.util.GameStartEntrypoint;
+import turniplabs.halplibe.util.dependency.Key;
 import useless.moonsteel.block.TileEntityStellarRewinder;
 
 import java.util.Properties;
 
 
-public class MoonSteel implements ModInitializer, GameStartEntrypoint {
-    public static final String MOD_ID = "moonsteel";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+public class MoonSteel implements ModInitializer {
+    public static final String MOD_ID = HalpLibe.registerMod("moonsteel");
+	public static final Key KEY = Key.of(MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static boolean backpackPresent = FabricLoader.getInstance().isModLoaded("betterwithbackpacks");
 	public static int blockId;
 	public static int itemId;
@@ -28,6 +33,9 @@ public class MoonSteel implements ModInitializer, GameStartEntrypoint {
 	public static int FORTUNE_AMOUNT;
 	public static int LOOTING_AMOUNT;
 	public static int STAR_SPAWN_RATE;
+	public static ItemStack starZombieSword;
+	public static boolean forceChunkLoads = false;
+
 	static {
 		final Properties prop = new Properties();
 		prop.setProperty("starting_block_id","6700");
@@ -47,32 +55,32 @@ public class MoonSteel implements ModInitializer, GameStartEntrypoint {
 
 		config.updateConfig();
 	}
-
-	public static ItemStack starZombieSword;
-	public static boolean forceChunkLoads = false;
     @Override
     public void onInitialize() {
         LOGGER.info("MoonSteel initialized.");
+		CommonEvents.BEFORE_GAME_START.listen(KEY, this::beforeGameStart);
+		CommonEvents.RECIPES_READY.listen(KEY, MoonSteelRecipes::onRecipesReady);
+		CommonEvents.RECIPES_NAMESPACE_INIT.listen(KEY, MoonSteelRecipes::initNamespaces);
     }
 
-	@Override
 	public void beforeGameStart() {
 		SoundTypes.loadSoundsJson(MOD_ID);
-		EntityHelper.createTileEntity(TileEntityStellarRewinder.class, NamespaceID.getPermanent(MOD_ID, "moonsteel$stellar_rewinder"), "moonsteel$stellar_rewinder");
+		TileEntityDispatcher.addMapping(
+			TileEntityStellarRewinder.class,
+			NamespaceID.fromPool(MOD_ID, "moonsteel$stellar_rewinder")
+		);
 		MoonSteelBlocks.init();
 		MoonSteelItems.init();
 		if (backpackPresent){
-			CreativeHelper.setParent(MoonSteelItems.BACKPACK_COSMIC.getDefaultStack(), ModItems.diamondBackpack.getDefaultStack());
+			CreativeHelper.setParent(
+				MoonSteelItems.BACKPACK_COSMIC.getDefaultStack(),
+				ModItems.diamondBackpack.getDefaultStack()
+			);
 		}
 	}
 
-	@Override
-	public void afterGameStart() {
-
-	}
-
 	public static boolean isStarTime(final World world){
-		if (world.worldType.hasCeiling()) return false;
+		if (world.getWorldType().hasCeiling()) return false;
 		if (world.isDaytime()) return false;
 		return world.getWorldTime() % 2000 <= 200;
 	}

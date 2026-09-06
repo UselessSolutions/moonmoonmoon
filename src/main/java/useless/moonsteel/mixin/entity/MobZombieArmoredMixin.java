@@ -29,7 +29,7 @@ public abstract class MobZombieArmoredMixin extends MobZombie implements IMoonGr
 	@Shadow
 	public abstract boolean isHoldingSword();
 
-	public MobZombieArmoredMixin(final World world) {
+	protected MobZombieArmoredMixin(final World world) {
 		super(world);
 	}
 

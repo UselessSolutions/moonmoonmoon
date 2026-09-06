@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import useless.moonsteel.StarBackpackInventory;
+import useless.moonsteel.backpack.StarBackpackInventory;
 import useless.moonsteel.interfaces.IStarBackpack;
 import useless.moonsteel.interfaces.ITeleporter;
 
@@ -20,7 +20,7 @@ public abstract class PlayerMixin extends Mob implements IStarBackpack, ITelepor
 	@Unique
 	public StarBackpackInventory starBackpackInventory;
 
-	public PlayerMixin(@Nullable final World world) {
+	protected PlayerMixin(final World world) {
 		super(world);
 	}
 

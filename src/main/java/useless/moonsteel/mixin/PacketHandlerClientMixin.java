@@ -18,11 +18,11 @@ public abstract class PacketHandlerClientMixin {
 	@Shadow
 	private Minecraft mc;
 
-	@Inject(method="handleOpenWindow",at=@At("TAIL"))
+	@Inject(method = "handleContainerOpen", at = @At("TAIL"))
 	public void inject(final PacketContainerOpen packetContainerOpen, final CallbackInfo ci) {
 		if (packetContainerOpen.inventoryType == MoonSteel.GUI_ID) {
 			((IStarBackpack)(this.mc.thePlayer)).moonsteel$displayGuiStarBackpack();
-			this.mc.thePlayer.craftingInventory.containerId = packetContainerOpen.windowId;
+			this.mc.thePlayer.containerMenu.containerId = packetContainerOpen.windowId;
 		}
 	}
 }

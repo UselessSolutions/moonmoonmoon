@@ -1,4 +1,4 @@
-package useless.moonsteel;
+package useless.moonsteel.backpack;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.ListTag;
@@ -7,6 +7,7 @@ import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.InventorySorter;
 import net.minecraft.core.player.inventory.container.Container;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
+import useless.moonsteel.MoonSteelItems;
 
 public class StarBackpackInventory implements Container {
 	public static int starBackpackSize = 18;

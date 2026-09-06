@@ -3,41 +3,53 @@ package useless.moonsteel.block;
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicTorch;
 import net.minecraft.core.world.World;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
 public class BlockTorchStar extends BlockLogicTorch {
+
+	public static final String SMOKE = "moonsteel$magic_smoke";
+	public static final String STAR = "moonsteel$star";
+
 	public BlockTorchStar(final Block<?> block) {
 		super(block);
 	}
 	@Override
-	public void animationTick(final World world, final int x, final int y, final int z, final Random rand) {
-		final double xPos = x + 0.5;
-		final double yPos = y + 0.575;
-		final double zPos = z + 0.5;
+	public void animationTick(final World world, final @NotNull TilePosc tilePos, final @NotNull Random rand) {
+		final double xPos = tilePos.x() + 0.5;
+		final double yPos = tilePos.y() + 0.575;
+		final double zPos = tilePos.z() + 0.5;
 		final double d3 = 0.22;
 		final double d4 = 0.27;
-		final int side = world.getBlockMetadata(x, y, z) & MASK_DIRECTION;
+		double py = yPos + d3;
+		final int side = world.getBlockData(tilePos) & MASK_DIRECTION;
 		switch (side) {
-			case SIDE_WEST:
-				world.spawnParticle("moonsteel$magic_smoke", xPos - d4, yPos + d3, zPos, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("moonsteel$star", xPos - d4, yPos + d3, zPos, 0.0F, 0.0F, 0.0F, 0);
-				break;
-			case SIDE_EAST:
-				world.spawnParticle("moonsteel$magic_smoke", xPos + d4, yPos + d3, zPos, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("moonsteel$star", xPos + d4, yPos + d3, zPos, 0.0F, 0.0F, 0.0F, 0);
-				break;
-			case SIDE_NORTH:
-				world.spawnParticle("moonsteel$magic_smoke", xPos, yPos + d3, zPos - d4, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("moonsteel$star", xPos, yPos + d3, zPos - d4, 0.0F, 0.0F, 0.0F, 0);
-				break;
-			case SIDE_SOUTH:
-				world.spawnParticle("moonsteel$magic_smoke", xPos, yPos + d3, zPos + d4, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("moonsteel$star", xPos, yPos + d3, zPos + d4, 0.0F, 0.0F, 0.0F, 0);
-				break;
-			case SIDE_BOTTOM:
-				world.spawnParticle("moonsteel$magic_smoke", xPos, yPos, zPos, 0.0F, 0.0F, 0.0F, 0);
-				world.spawnParticle("moonsteel$star", xPos, yPos, zPos, 0.0F, 0.0F, 0.0F, 0);
+			case SIDE_WEST -> {
+				double px = xPos - d4;
+				world.spawnParticle(SMOKE, px, py, zPos, 0.0F, 0.0F, 0.0F, 0, false);
+				world.spawnParticle(STAR, px, py, zPos, 0.0F, 0.0F, 0.0F, 0, false);
+			}
+			case SIDE_EAST -> {
+				double px = xPos + d4;
+				world.spawnParticle(SMOKE, px, py, zPos, 0.0F, 0.0F, 0.0F, 0, false);
+				world.spawnParticle(STAR, px, py, zPos, 0.0F, 0.0F, 0.0F, 0, false);
+			}
+			case SIDE_SOUTH -> {
+				double pz = zPos + d4;
+				world.spawnParticle(SMOKE, xPos, py, pz, 0.0F, 0.0F, 0.0F, 0, false);
+				world.spawnParticle(STAR, xPos, py, pz, 0.0F, 0.0F, 0.0F, 0, false);
+			}
+			case SIDE_BOTTOM -> {
+				world.spawnParticle(SMOKE, xPos, yPos, zPos, 0.0F, 0.0F, 0.0F, 0, false);
+				world.spawnParticle(STAR, xPos, yPos, zPos, 0.0F, 0.0F, 0.0F, 0, false);
+			}
+			default -> { // north side is default
+				double pz = zPos - d4;
+				world.spawnParticle(SMOKE, xPos, py, pz, 0.0F, 0.0F, 0.0F, 0, false);
+				world.spawnParticle(STAR, xPos, py, pz, 0.0F, 0.0F, 0.0F, 0, false);
+			}
 		}
 	}
 }

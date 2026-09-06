@@ -19,7 +19,7 @@ public class BlockModelStellarRewinder<T extends BlockLogic> extends BlockModelH
 	public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
 		IconCoordinate iconCoordinate = super.getBlockTexture(blockAccess, x, y, z, side);
 		TileEntityStellarRewinder rewinder = (TileEntityStellarRewinder) blockAccess.getTileEntity(x,y,z);
-		if (rewinder.inUse && iconCoordinate == icon_front){
+		if (rewinder.inUse() && iconCoordinate == icon_front){
 			iconCoordinate = icon_front_active;
 		}
 		return iconCoordinate;

@@ -8,13 +8,14 @@ import net.minecraft.core.item.Items;
 import net.minecraft.core.util.helper.DyeColor;
 import tosutosu.betterwithbackpacks.ModItems;
 import turniplabs.halplibe.helper.RecipeBuilder;
-import turniplabs.halplibe.util.RecipeEntrypoint;
 
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
-public class MoonSteelRecipes implements RecipeEntrypoint {
-	@Override
-	public void onRecipesReady() {
+public class MoonSteelRecipes {
+
+	private MoonSteelRecipes(){}
+
+	public static void onRecipesReady() {
 		LookupFuelFurnace.instance.addFuelEntry(MoonSteelItems.STAR_FALLEN.id, 9600);
 		LookupFuelFurnaceBlast.instance.addFuelEntry(MoonSteelItems.STAR_FALLEN.id, 9600);
 
@@ -163,8 +164,7 @@ public class MoonSteelRecipes implements RecipeEntrypoint {
 			.create("fallenstar");
 	}
 
-	@Override
-	public void initNamespaces() {
+	public static void initNamespaces() {
 		RecipeBuilder.initNameSpace(MOD_ID);
 	}
 }

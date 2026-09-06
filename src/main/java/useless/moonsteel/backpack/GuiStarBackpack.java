@@ -1,10 +1,11 @@
-package useless.moonsteel;
+package useless.moonsteel.backpack;
 
 import net.minecraft.client.gui.container.ScreenContainerAbstract;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.lang.I18n;
 import org.lwjgl.opengl.GL11;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
+import useless.moonsteel.ContainerStarBackpack;
 
 public class GuiStarBackpack extends ScreenContainerAbstract {
 	private int GUIx;

@@ -1,6 +1,7 @@
 package useless.moonsteel.mixin;
 
 import net.minecraft.core.world.chunk.Chunk;
+import net.minecraft.core.world.pos.ChunkPosc;
 import net.minecraft.server.world.chunk.provider.ChunkProviderServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,8 +15,8 @@ public class ChunkProviderServerMixin {
 	@Shadow
 	public boolean chunkLoadOverride;
 
-	@Inject(method = "provideChunk(II)Lnet/minecraft/core/world/chunk/Chunk;", at = @At("HEAD"))
-	private void overrideChunks(final int chunkX, final int chunkZ, final CallbackInfoReturnable<Chunk> cir){
+	@Inject(method = "provideChunk", at = @At("HEAD"))
+	private void overrideChunks(ChunkPosc chunkPos, boolean priority, CallbackInfoReturnable<Chunk> cir){
 		this.chunkLoadOverride = MoonSteel.forceChunkLoads;
 	}
 }
