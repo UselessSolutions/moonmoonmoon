@@ -12,7 +12,7 @@ import static useless.moonsteel.MoonSteel.MOD_ID;
 
 public class ParticleMagicSmoke extends ParticleSmoke {
 	private static final IconCoordinate smoke = TextureRegistry.getTexture(MOD_ID + ":item/particle_magicsmoke");
-	public float sizeO;
+	private float sizeO;
 
 	public ParticleMagicSmoke(World world, double x, double y, double z, double xa, double ya, double za) {
 		super(world, x, y, z, xa, ya, za, 1.0f, 0); // no scale unsure about data
@@ -21,47 +21,21 @@ public class ParticleMagicSmoke extends ParticleSmoke {
 		this.bCol = 1;
 		this.tex = smoke;
 		this.lifetime = (int) (5.0 / (Math.random() * 0.9 + 0.2));
-		size *= 1.5f;
-		sizeO = size;
+		this.size *= 1.5f;
+		this.sizeO = size;
 	}
 
 	@Override
 	public void render(@NotNull TessellatorParticle tessellatorParticle, float partialTick) {
-
-	}
-
-	// TODO figure out what do to with this
-	public void render(TessellatorParticle t, float partialTick, double xOff, double yOff, double zOff, float xa, float ya, float za, float xa2, float za2) {
-//		float f6 = ((float) this.age + partialTick) / (float) this.lifetime * 32.0f;
-//		if (f6 < 0.0f) {
-//			f6 = 0.0f;
-//		}
-//		if (f6 > 1.0f) {
-//			f6 = 1.0f;
-//		}
-//		this.size = this.sizeO * f6;
-//		if (this.tex != null) {
-//			final float u0 = (float) this.tex.getIconUMin();
-//			final float u2 = (float) this.tex.getIconUMax();
-//			final float v0 = (float) this.tex.getIconVMin();
-//			final float v2 = (float) this.tex.getIconVMax();
-//			final float r = 0.1F * this.size;
-//			final float x = (float) (this.xo + (this.x - this.xo) * (double) partialTick - xOff);
-//			final float y = (float) (this.yo + (this.y - this.yo) * (double) partialTick - yOff);
-//			final float z = (float) (this.zo + (this.z - this.zo) * (double) partialTick - zOff);
-//			float br = 1.0F;
-//			if (LightmapHelper.isLightmapEnabled()) {
-//				t.setLightmapCoord(this.getLightmapCoord(partialTick));
-//			} else {
-//				br = this.getBrightness(partialTick);
-//			}
-//
-//			t.setColorOpaque_F(this.rCol * br, this.gCol * br, this.bCol * br);
-//			t.addVertexWithUV(x - xa * r - xa2 * r, y - ya * r, z - za * r - za2 * r, u2, v2);
-//			t.addVertexWithUV(x - xa * r + xa2 * r, y + ya * r, z - za * r + za2 * r, u2, v0);
-//			t.addVertexWithUV(x + xa * r + xa2 * r, y + ya * r, z + za * r + za2 * r, u0, v0);
-//			t.addVertexWithUV(x + xa * r - xa2 * r, y - ya * r, z + za * r - za2 * r, u0, v2);
-//		}
+		float f6 = ((float) this.age + partialTick) / (float) this.lifetime * 32.0f;
+		if (f6 < 0.0f) {
+			f6 = 0.0f;
+		}
+		if (f6 > 1.0f) {
+			f6 = 1.0f;
+		}
+		this.size = this.sizeO * f6;
+		super.render(tessellatorParticle, partialTick);
 	}
 
 	@Override
@@ -70,10 +44,10 @@ public class ParticleMagicSmoke extends ParticleSmoke {
 		return super.getBrightness(partialTick) * decay + (1.0f - decay);
 	}
 
-	@Override
-	public int getParticleTexture() {
-		return 2;
-	}
+//	@Override
+//	public int getParticleTexture() {
+//		return 2;
+//	}
 
 	@Override
 	public void tick() {

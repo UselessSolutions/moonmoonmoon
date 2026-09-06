@@ -2,24 +2,31 @@ package useless.moonsteel;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.block.entity.TileEntityDispatcher;
+import net.minecraft.core.item.IItemConvertible;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tosutosu.betterwithbackpacks.ModItems;
 import turniplabs.halplibe.HalpLibe;
 import turniplabs.halplibe.event.defs.CommonEvents;
-import turniplabs.halplibe.helper.CreativeHelper;
-import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryRegistry;
 import turniplabs.halplibe.util.ConfigHandler;
-import turniplabs.halplibe.util.GameStartEntrypoint;
 import turniplabs.halplibe.util.dependency.Key;
 import useless.moonsteel.block.TileEntityStellarRewinder;
 
 import java.util.Properties;
+import java.util.function.Supplier;
+
+import static useless.moonsteel.MoonSteelBlocks.*;
+import static useless.moonsteel.MoonSteelItems.*;
 
 
 public class MoonSteel implements ModInitializer {
@@ -71,12 +78,34 @@ public class MoonSteel implements ModInitializer {
 		);
 		MoonSteelBlocks.init();
 		MoonSteelItems.init();
+		// blocks
+		CreativeInventoryRegistry.INSTANCE.register(BLOCK_MOONSTEEL, place(() -> Blocks.BLOCK_OLIVINE));
+		CreativeInventoryRegistry.INSTANCE.register(TORCH_STAR, place(() -> Blocks.TORCH_COAL));
+		CreativeInventoryRegistry.INSTANCE.register(STELLAR_REWINDER, place());
+		// items
+		CreativeInventoryRegistry.INSTANCE.register(INGOT_MOONSTEEL, place(() -> Items.INGOT_STEEL_CRUDE));
+		CreativeInventoryRegistry.INSTANCE.register(STAR_FALLEN, place(() -> Items.INGOT_STEEL_CRUDE));
+		CreativeInventoryRegistry.INSTANCE.register(STAR_CONNECTED, place(() -> Items.INGOT_STEEL_CRUDE));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_SHOVEL_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_PICKAXE_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_AXE_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_HOE_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_SWORD_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_HELMET_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_CHESTPLATE_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_LEGGINGS_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_BOOTS_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
 		if (backpackPresent){
-			CreativeHelper.setParent(
-				MoonSteelItems.BACKPACK_COSMIC.getDefaultStack(),
-				ModItems.diamondBackpack.getDefaultStack()
-			);
+			CreativeInventoryRegistry.INSTANCE.register(BACKPACK_COSMIC, place(() -> Items.ARMOR_WOLF_STEEL));
 		}
+	}
+
+	private static CreativeInventoryPlacement.@NotNull After place(Supplier<IItemConvertible> iItemConvertibleSupplier) {
+		return new CreativeInventoryPlacement.After(iItemConvertibleSupplier);
+	}
+
+	private static CreativeInventoryPlacement.@NotNull Category place() {
+		return new CreativeInventoryPlacement.Category(CreativeInventoryCategory.WORKBENCHES);
 	}
 
 	public static boolean isStarTime(final World world){

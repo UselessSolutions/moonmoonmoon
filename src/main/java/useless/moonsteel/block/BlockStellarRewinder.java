@@ -29,4 +29,9 @@ public class BlockStellarRewinder extends BlockLogicRotatable {
 		}
 		return false;
 	}
+
+	@Override
+	public int getPistonPushReaction(@NotNull World world, @NotNull TilePosc tilePos) {
+		return 2;
+	}
 }
