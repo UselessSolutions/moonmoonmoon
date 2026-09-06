@@ -1,4 +1,4 @@
-plugins {
+    plugins {
 	alias(libs.plugins.loom)
     java
 }
@@ -44,7 +44,6 @@ dependencies {
 	implementation(libs.loader)
 	implementation(libs.halplibe) // If you do not need halplibe you can delete this line
 
-//    implementation("useless:btabackpacks:1.1.10-7.3_03")
     compileOnly(libs.btabackpacks)
 
 	// Only required at compilation

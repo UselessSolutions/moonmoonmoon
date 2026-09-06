@@ -5,7 +5,6 @@ import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,6 +23,15 @@ public abstract class PlayerMixin extends Mob implements IStarBackpack, ITelepor
 		super(world);
 	}
 
+	@Override
+	public void moonsteel$displayGuiStarBackpack() {
+
+	}
+
+	@Override
+	public void moonsteel$teleport(final double x, final double y, final double z) {
+		setPos(x, y + this.bbHeight, z);
+	}
 	@Inject(method = "<init>(Lnet/minecraft/core/world/World;)V", at = @At("TAIL"))
 	private void createBackpack(final World world, final CallbackInfo ci){
 		this.starBackpackInventory = new StarBackpackInventory((Player) (Object)this);
@@ -36,6 +44,7 @@ public abstract class PlayerMixin extends Mob implements IStarBackpack, ITelepor
 	private void loadData(final CompoundTag tag, final CallbackInfo ci){
 		this.starBackpackInventory.readFromNBT(tag.getList("moonsteel$InventoryStardust"));
 	}
+
 	@Override
 	public StarBackpackInventory moonsteel$getStarBackpackInventory() {
 		return this.starBackpackInventory;
@@ -44,15 +53,5 @@ public abstract class PlayerMixin extends Mob implements IStarBackpack, ITelepor
 	@Override
 	public void moonsteel$setStarBackpackInventory(final StarBackpackInventory backpackInventory) {
 		this.starBackpackInventory = backpackInventory;
-	}
-
-	@Override
-	public void moonsteel$displayGuiStarBackpack() {
-
-	}
-
-	@Override
-	public void moonsteel$teleport(final double x, final double y, final double z) {
-		setPos(x, y + this.bbHeight, z);
 	}
 }

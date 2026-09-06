@@ -1,4 +1,4 @@
-package useless.moonsteel.mixin;
+package useless.moonsteel.mixin.backpack;
 
 import net.minecraft.core.net.packet.PacketContainerOpen;
 import net.minecraft.core.world.World;
@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import useless.moonsteel.ContainerStarBackpack;
 import useless.moonsteel.MoonSteel;
-import useless.moonsteel.mixin.backpack.PlayerMixin;
 
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixin extends PlayerMixin {
@@ -42,5 +41,8 @@ public abstract class PlayerServerMixin extends PlayerMixin {
 		this.thisAs.containerMenu.addSlotListener(this.thisAs);
 	}
 
-
+	@Override
+	public void moonsteel$teleport(final double x, final double y, final double z) {
+		this.playerNetServerHandler.teleport(x, y, z);
+	}
 }
