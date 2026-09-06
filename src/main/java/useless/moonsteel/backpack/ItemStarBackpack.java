@@ -9,14 +9,15 @@ import useless.moonsteel.interfaces.IStarBackpack;
 
 public class ItemStarBackpack extends ItemBackpack {
 	public ItemStarBackpack(String name, String namespaceId, int id) {
-		super(name, namespaceId, id, StarBackpackInventory.starBackpackSize);
+		super(name, namespaceId, id, StarBackpackInventory.STAR_BACKPACK_SIZE);
 	}
+
+
 	@Override
-	public ItemStack onUseItem(ItemStack itemstack, World world, Player entityplayer) {
+	public ItemStack onUse(ItemStack itemstack, World world, Player entityplayer) {
 		if (!world.isClientSide && BetterWithBackpacks.ENABLE_BACKPACKS) {
 			((IStarBackpack)entityplayer).moonsteel$displayGuiStarBackpack();
 		}
-
 		return itemstack;
 	}
 }

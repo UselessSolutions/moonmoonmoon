@@ -6,22 +6,23 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.player.inventory.InventorySorter;
 import net.minecraft.core.player.inventory.container.Container;
+import org.jetbrains.annotations.NotNull;
 import tosutosu.betterwithbackpacks.BetterWithBackpacks;
 import useless.moonsteel.MoonSteelItems;
 
 public class StarBackpackInventory implements Container {
-	public static int starBackpackSize = 18;
-	protected ItemStack[] backpackItemStacks;
-	public Player player;
+	public static final int STAR_BACKPACK_SIZE = 18;
+	private ItemStack[] backpackItemStacks;
+	private Player player;
 
 	public StarBackpackInventory(Player player) {
 		this.player = player;
-        this.backpackItemStacks = new ItemStack[starBackpackSize];
+		this.backpackItemStacks = new ItemStack[STAR_BACKPACK_SIZE];
 	}
 
 	@Override
 	public int getContainerSize() {
-		return starBackpackSize;
+		return STAR_BACKPACK_SIZE;
 	}
 
 	@Override
@@ -58,7 +59,7 @@ public class StarBackpackInventory implements Container {
 	}
 
 	@Override
-	public String getNameTranslationKey() {
+	public @NotNull String getNameTranslationKey() {
 		return "moonsteel.container.backpack.star.name";
 	}
 
@@ -69,7 +70,7 @@ public class StarBackpackInventory implements Container {
 
 	@Override
 	public void setChanged() {
-
+		/* no need */
 	}
 
 	public void readFromNBT(ListTag tagList) {
@@ -98,7 +99,7 @@ public class StarBackpackInventory implements Container {
 	}
 
 	@Override
-	public boolean stillValid(Player entityPlayer) {
+	public boolean stillValid(@NotNull Player entityPlayer) {
 		if (!BetterWithBackpacks.ENABLE_BACKPACKS) {
 			return false;
 		} else if (entityPlayer.getHeldItem() == null) {
@@ -110,7 +111,13 @@ public class StarBackpackInventory implements Container {
 	}
 
 	@Override
-	public void sortContainer() {
+	public void sort() {
 		InventorySorter.sortInventory(this.backpackItemStacks);
 	}
+
+	@Override
+	public boolean locked(int slot) {
+		return Container.super.locked(slot);
+	}
+
 }

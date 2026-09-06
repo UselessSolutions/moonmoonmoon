@@ -32,9 +32,12 @@ lwjgl = "3.3.3"
 
 joml = "1.10.8" # Note: BTA uses 1.10.7, patch 8 removes the kotlin stdlib dependency
 jomlPrimitivess = "1.10.0"
+
+btabackpacks = "1.2.0-8.0"
 ##########################################################################
 
 [libraries]
+btabackpacks = { group = "maven.modrinth", name = "better-with-backpacks", version.ref = "btabackpacks" }
 loader = { group = "net.fabricmc", name = "fabric-loader", version.ref = "loader" }
 halplibe = { group = "turniplabs", name = "halplibe", version.ref = "halplibe" }
 modMenu = { group = "turniplabs", name = "modmenu-bta", version.ref = "modMenu" }

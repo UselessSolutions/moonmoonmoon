@@ -38,14 +38,15 @@ public class ItemConnectedStar extends Item {
 				return itemstack;
 			}
 			MoonSteel.forceChunkLoads = true;
-			Chunk chunk = world.getChunkProvider().provideChunk(new ChunkPos(destX, destZ), true);
+			Chunk chunk = world.getChunkProvider().provideChunk(new ChunkPos(destX >> 4, destZ >> 4), true);
 			MoonSteel.forceChunkLoads = false;
-			TileEntity te = chunk.getTileEntity(new ChunkTilePos(destX &0xF, destY, destZ &0xF));
-			if (te instanceof TileEntityStellarRewinder && ((TileEntityStellarRewinder) te).canTeleport(itemstack)){
+			ChunkTilePos chunkTilePos = new ChunkTilePos(destX, destY, destZ);
+			TileEntity te = chunk.getTileEntity(chunkTilePos);
+			if (te instanceof TileEntityStellarRewinder tileEntityStellarRewinder && tileEntityStellarRewinder.canTeleport(itemstack)){
 				entityplayer.score -= cost;
-				Side side = ((TileEntityStellarRewinder) te).side();
+				Side side = tileEntityStellarRewinder.side();
 				((ITeleporter) entityplayer).moonsteel$teleport(destX + side.offsetX() + 0.5f, destY + side.offsetY(), destZ + side.offsetZ() + 0.5f);
-				((TileEntityStellarRewinder) te).setInUse(false);
+				tileEntityStellarRewinder.setInUse(false);
 			} else if (!world.isClientSide) {
 				entityplayer.sendMessageTranslated("moonsteel.teleport.fail.missing");
 			}

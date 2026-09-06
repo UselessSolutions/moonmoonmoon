@@ -7,6 +7,8 @@ import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogic;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.WorldSource;
+import net.minecraft.core.world.pos.TilePosc;
+import org.jetbrains.annotations.NotNull;
 import useless.moonsteel.MoonSteel;
 
 public class BlockModelStellarRewinder<T extends BlockLogic> extends BlockModelHorizontalRotation<T> {
@@ -16,10 +18,10 @@ public class BlockModelStellarRewinder<T extends BlockLogic> extends BlockModelH
 		super(block);
 	}
 	@Override
-	public IconCoordinate getBlockTexture(WorldSource blockAccess, int x, int y, int z, Side side) {
-		IconCoordinate iconCoordinate = super.getBlockTexture(blockAccess, x, y, z, side);
-		TileEntityStellarRewinder rewinder = (TileEntityStellarRewinder) blockAccess.getTileEntity(x,y,z);
-		if (rewinder.inUse() && iconCoordinate == icon_front){
+	public IconCoordinate getBlockTexture(@NotNull WorldSource blockAccess, @NotNull TilePosc tilePosc, @NotNull Side side) {
+		IconCoordinate iconCoordinate = super.getBlockTexture(blockAccess, tilePosc, side);
+		TileEntityStellarRewinder rewinder = (TileEntityStellarRewinder) blockAccess.getTileEntity(tilePosc);
+		if (rewinder != null && rewinder.inUse() && iconCoordinate == icon_front){
 			iconCoordinate = icon_front_active;
 		}
 		return iconCoordinate;

@@ -9,6 +9,8 @@ public class SlotStarBackpack extends Slot {
 	public SlotStarBackpack(Container inventory, int id, int x, int y) {
 		super(inventory, id, x, y);
 	}
+
+	@Override
 	public boolean mayPlace(ItemStack itemstack) {
 		return itemstack != null && !(itemstack.getItem() instanceof ItemBackpack) && !this.isLocked();
 	}

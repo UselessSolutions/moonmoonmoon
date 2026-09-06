@@ -9,7 +9,8 @@
     "Useless"
   ],
 	"contributors": [
-		"BigJango"
+		"BigJango",
+		"Redart15"
 	],
 	"contact": {
     "homepage": "https://github.com/UselessSolutions/moonmoonmoon",
@@ -21,38 +22,20 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-			"useless.moonsteel.MoonSteel"
-    ],
-		"beforeGameStart": [
-			"useless.moonsteel.MoonSteel"
-		],
-		"afterGameStart": [
-			"useless.moonsteel.MoonSteel"
-		],
-		"recipesReady": [
-			"useless.moonsteel.MoonSteelRecipes"
-		],
-		"beforeClientStart": [
-			"useless.moonsteel.MoonSteelClient"
-		],
-		"afterClientStart": [
-			"useless.moonsteel.MoonSteelClient"
-		],
-		"initModels": [
-			"useless.moonsteel.MoonSteelModels"
-		]
+    "main": 		["useless.moonsteel.MoonSteel"],
+		"client": 	["useless.moonsteel.MoonSteelClient"]
 	},
   "mixins": [
       "moonsteel.mixins.json"
   ],
 
   "depends": {
-		"minecraft": "~7.3",
-    "fabricloader": ">=0.13.3",
-		"halplibe": ">=5.2.0"
-  },
+		"fabricloader": ">=${fabricloader}",
+		"halplibe": ">=${halplibe}",
+		"minecraft": "*",
+		"java": ">=${java}"
+	},
   "suggests": {
-		"betterwithbackpacks": ">=1.1.10"
+		"betterwithbackpacks": ">=1.2.0-8.0"
   }
 }

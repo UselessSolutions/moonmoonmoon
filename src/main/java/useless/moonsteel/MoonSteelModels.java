@@ -19,7 +19,7 @@ import static useless.moonsteel.MoonSteel.MOD_ID;
 public class MoonSteelModels {
 
 
-	public void initBlockModels(final BlockModelDispatcher dispatcher) {
+	public static void initBlockModels(final BlockModelDispatcher dispatcher) {
 		final Side[] S_TB = {Side.TOP, Side.BOTTOM};
 		final Side[] S_SIDES = {Side.NORTH, Side.EAST, Side.SOUTH, Side.WEST};
 		//TODO replace with BlockModelGeneric
@@ -40,7 +40,7 @@ public class MoonSteelModels {
 	}
 
 
-	public void initItemModels(final ItemModelDispatcher dispatcher) {
+	public static void initItemModels(final ItemModelDispatcher dispatcher) {
 		dispatcher.addDispatch(makeModel(MoonSteelItems.INGOT_MOONSTEEL, "moonsteel_ingot"));
 		dispatcher.addDispatch(makeModel(MoonSteelItems.INGOT_MOONSTEEL_CRUDE, "moonsteel_crude"));
 		dispatcher.addDispatch(makeHoldModel(MoonSteelItems.TOOL_PICKAXE_MOONSTEEL, "moonsteel_pickaxe"));

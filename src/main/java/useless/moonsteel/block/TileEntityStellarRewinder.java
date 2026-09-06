@@ -35,9 +35,9 @@ public class TileEntityStellarRewinder extends TileEntity {
 			int destY = stack.getData().getInteger("moonsteel$y");
 			int destZ = stack.getData().getInteger("moonsteel$z");
 			MoonSteel.forceChunkLoads = true;
-			Chunk chunk = this.worldObj.getChunkProvider().provideChunk(new ChunkPos(destX, destZ), true);
+			Chunk chunk = worldObj.getChunkProvider().provideChunk(new ChunkPos(destX >> 4, destZ >> 4), true);
 			MoonSteel.forceChunkLoads = false;
-			TileEntity te = chunk.getTileEntity(new ChunkTilePos(destX &0xF, destY, destZ &0xF));
+			TileEntity te = chunk.getTileEntity(new ChunkTilePos(destX & 0xF, destY, destZ & 0xF));
 			if (te instanceof TileEntityStellarRewinder tileEntityStellarRewinder && tileEntityStellarRewinder.canTeleport(stack)){
 				tileEntityStellarRewinder.setInUse(false);
 			}

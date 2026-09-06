@@ -21,6 +21,8 @@ public class MoonSteelClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ClientEvents.BEFORE_CLIENT_START.listen(KEY, this::beforeClientStart);
 		ClientEvents.AFTER_CLIENT_START.listen(KEY, this::afterClientStart);
+		ClientEvents.ITEM_MODEL_RELOAD.listen(KEY, MoonSteelModels::initItemModels);
+		ClientEvents.BLOCK_MODEL_RELOAD.listen(KEY, MoonSteelModels::initBlockModels);
 	}
 
 

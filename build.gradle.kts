@@ -30,6 +30,11 @@ repositories {
     maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
     maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
 	maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
+    maven("https://api.modrinth.com/maven") { name = "Modrinth"
+        content {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 dependencies {
     minecraft("::${libs.versions.bta.get()}")
@@ -40,7 +45,7 @@ dependencies {
 	implementation(libs.halplibe) // If you do not need halplibe you can delete this line
 
 //    implementation("useless:btabackpacks:1.1.10-7.3_03")
-//    modImplementation("turniplabs:modmenu-bta:${project.mod_menu_version}")
+    compileOnly(libs.btabackpacks)
 
 	// Only required at compilation
 	// provides documentation, can be removed if that isn't needed
