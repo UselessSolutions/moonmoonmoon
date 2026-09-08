@@ -17,6 +17,7 @@
     "stella.PlayerServerMixinStella"
   ],
   "mixins": [
+    "accessor.ParticleFlameAccessor",
     "WorldFeatureLabyrinthMixinRewards",
     "accessor.ItemToolSwordAccessor",
     "armor.MobMixin",

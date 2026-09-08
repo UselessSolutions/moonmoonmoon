@@ -33,6 +33,8 @@ public class MoonSteel implements ModInitializer {
     public static final String MOD_ID = HalpLibe.registerMod("moonsteel");
 	public static final Key KEY = Key.of(MOD_ID);
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final String SMOKE = "moonsteel$magic_smoke";
+	public static final String STAR = "moonsteel$star";
 	public static boolean backpackPresent = FabricLoader.getInstance().isModLoaded("betterwithbackpacks");
 	public static int blockId;
 	public static int itemId;
@@ -62,6 +64,7 @@ public class MoonSteel implements ModInitializer {
 
 		config.updateConfig();
 	}
+
     @Override
     public void onInitialize() {
         LOGGER.info("MoonSteel initialized.");
@@ -82,7 +85,9 @@ public class MoonSteel implements ModInitializer {
 		CreativeInventoryRegistry.INSTANCE.register(BLOCK_MOONSTEEL, place(() -> Blocks.BLOCK_OLIVINE));
 		CreativeInventoryRegistry.INSTANCE.register(TORCH_STAR, place(() -> Blocks.TORCH_COAL));
 		CreativeInventoryRegistry.INSTANCE.register(STELLAR_REWINDER, place());
+		CreativeInventoryRegistry.INSTANCE.register(STAR_LAMP, place(() -> Blocks.TORCH_COAL));
 		// items
+		CreativeInventoryRegistry.INSTANCE.register(INGOT_MOONSTEEL_CRUDE, place(() -> Items.INGOT_STEEL_CRUDE));
 		CreativeInventoryRegistry.INSTANCE.register(INGOT_MOONSTEEL, place(() -> Items.INGOT_STEEL_CRUDE));
 		CreativeInventoryRegistry.INSTANCE.register(STAR_FALLEN, place(() -> Items.INGOT_STEEL_CRUDE));
 		CreativeInventoryRegistry.INSTANCE.register(STAR_CONNECTED, place(() -> Items.INGOT_STEEL_CRUDE));

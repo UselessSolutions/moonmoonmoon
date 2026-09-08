@@ -162,6 +162,12 @@ public class MoonSteelRecipes {
 			.addEntry(new WeightedRandomLootObject(Items.ORE_RAW_IRON.getDefaultStack(), 1), 5)
 			.addEntry(new WeightedRandomLootObject(Items.ORE_RAW_GOLD.getDefaultStack(), 1), 1)
 			.create("fallenstar");
+
+		RecipeBuilder.Shaped(MOD_ID)
+			.setShape("OSO", "OSO")
+			.addInput('O', Items.OLIVINE)
+			.addInput('S', MoonSteelItems.STAR_FALLEN)
+			.create("star_lamp", new ItemStack(MoonSteelBlocks.STAR_LAMP, 8));
 	}
 
 	public static void initNamespaces() {

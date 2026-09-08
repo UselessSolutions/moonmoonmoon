@@ -40,3 +40,5 @@ moonsteel.teleport.fail.missing=Якорь был сломан, невозмож
 moonsteel.teleport.fail.dimension=Якорь в другом измерение!
 
 moonsteel.container.backpack.star.name=Звезвдный Рюкзак
+tile.moonsteel.star.lamp.name=Звёздная лампа
+tile.moonsteel.star.lamp.desc=Новая блестящая лампа.

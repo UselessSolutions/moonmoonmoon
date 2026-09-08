@@ -1,7 +1,6 @@
 package useless.moonsteel;
 
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
-import net.minecraft.client.render.block.model.BlockModelStandard;
 import net.minecraft.client.render.block.model.generic.BlockModelGeneric;
 import net.minecraft.client.render.block.model.generic.BlockModelGenericRotatable;
 import net.minecraft.client.render.block.model.generic.BlockModelGenericTorch;
@@ -10,8 +9,8 @@ import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.Side;
 import org.jetbrains.annotations.NotNull;
+import useless.moonsteel.block.BlockModelStarLamp;
 import useless.moonsteel.block.BlockModelStellarRewinder;
 import useless.moonsteel.item.ItemModelConnectStar;
 
@@ -21,16 +20,13 @@ import static useless.moonsteel.MoonSteel.MOD_ID;
 
 public class MoonSteelModels {
 
+	private MoonSteelModels(){}
 
 	public static void initBlockModels(final BlockModelDispatcher dispatcher) {
 		dispatcher.addDispatch(new BlockModelGeneric<>(MoonSteelBlocks.BLOCK_MOONSTEEL, loadDataModel(MOD_ID + ":block/moonsteel")));
 		dispatcher.addDispatch(new BlockModelGenericTorch<>(MoonSteelBlocks.TORCH_STAR, MOD_ID + ":block/star_torch").render3D(false));
-
-		// TODO relace this by a generic model
-		dispatcher.addDispatch(new BlockModelStellarRewinder<>(MoonSteelBlocks.STELLAR_REWINDER));
-//			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/stellarrewinder_side", Side.SOUTH, Side.WEST, Side.EAST)
-//			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/stellarrewinder_front", Side.NORTH)
-//			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/stellarrewinder_top", S_TB));
+		dispatcher.addDispatch(new BlockModelStellarRewinder<>(MoonSteelBlocks.STELLAR_REWINDER, MOD_ID + ":block/stellarrewinder"));
+		dispatcher.addDispatch(new BlockModelStarLamp<>(MoonSteelBlocks.STAR_LAMP, loadDataModel(MOD_ID + ":block/starlamp")));
 	}
 
 

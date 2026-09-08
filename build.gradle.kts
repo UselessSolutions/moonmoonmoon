@@ -45,6 +45,7 @@ dependencies {
 	implementation(libs.halplibe) // If you do not need halplibe you can delete this line
 
     compileOnly(libs.btabackpacks)
+    //-Dmixin.debug.export=true
 
 	// Only required at compilation
 	// provides documentation, can be removed if that isn't needed

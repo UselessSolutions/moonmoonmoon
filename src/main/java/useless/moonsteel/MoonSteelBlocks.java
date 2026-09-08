@@ -4,6 +4,8 @@ import net.minecraft.core.block.*;
 import net.minecraft.core.block.material.Materials;
 import net.minecraft.core.block.tag.BlockTags;
 import net.minecraft.core.data.tag.Tag;
+import net.minecraft.core.sound.BlockSounds;
+import useless.moonsteel.block.BlockLogicStarLamp;
 import useless.moonsteel.block.BlockStellarRewinder;
 import useless.moonsteel.block.BlockTorchStar;
 
@@ -50,6 +52,18 @@ public class MoonSteelBlocks {
 		)
 		.withHardness(3.5f)
 		.withTags(BlockTags.MINEABLE_BY_PICKAXE);
+
+	public static final Block<?> STAR_LAMP =
+		Blocks.register(
+			formatTranslationKey("star.lamp"),
+			formatName("star_lamp"),
+			MoonSteel.blockId++,
+			b -> new BlockLogicStarLamp(b, Materials.METAL)
+		)
+			.withSound(BlockSounds.GLASS)
+			.withHardness(0.5F)
+			.withLightEmission(15)
+			.withTags(new Tag[]{BlockTags.NOT_IN_CREATIVE_MENU, BlockTags.MINEABLE_BY_PICKAXE});
 
 	public static final Tag<Block<?>> FORCE_FORTUNE = Tag.of("moonsteel$force_enable_fortune");
 	public static final Tag<Block<?>> FORCE_NO_FORTUNE = Tag.of("moonsteel$force_disable_fortune");

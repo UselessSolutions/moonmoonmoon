@@ -2,6 +2,7 @@ package useless.moonsteel.block;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.BlockLogicRotatable;
+import net.minecraft.core.block.entity.TileEntity;
 import net.minecraft.core.block.material.Material;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
@@ -10,7 +11,10 @@ import net.minecraft.core.world.World;
 import net.minecraft.core.world.pos.TilePosc;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import useless.moonsteel.MoonSteel;
 import useless.moonsteel.MoonSteelItems;
+
+import java.util.Random;
 
 public class BlockStellarRewinder extends BlockLogicRotatable {
 	//Uses BlockTileEntityRotatable for its rotation properties not because its a tileEntity

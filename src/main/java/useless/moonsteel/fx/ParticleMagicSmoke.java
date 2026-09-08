@@ -12,7 +12,7 @@ import static useless.moonsteel.MoonSteel.MOD_ID;
 
 public class ParticleMagicSmoke extends ParticleSmoke {
 	private static final IconCoordinate smoke = TextureRegistry.getTexture(MOD_ID + ":item/particle_magicsmoke");
-	private float sizeO;
+	private final float sizeO;
 
 	public ParticleMagicSmoke(World world, double x, double y, double z, double xa, double ya, double za) {
 		super(world, x, y, z, xa, ya, za, 1.0f, 0); // no scale unsure about data
@@ -27,7 +27,7 @@ public class ParticleMagicSmoke extends ParticleSmoke {
 
 	@Override
 	public void render(@NotNull TessellatorParticle tessellatorParticle, float partialTick) {
-		float f6 = ((float) this.age + partialTick) / (float) this.lifetime * 32.0f;
+		float f6 = (this.age + partialTick) / this.lifetime * 16.0f;
 		if (f6 < 0.0f) {
 			f6 = 0.0f;
 		}
@@ -44,10 +44,7 @@ public class ParticleMagicSmoke extends ParticleSmoke {
 		return super.getBrightness(partialTick) * decay + (1.0f - decay);
 	}
 
-//	@Override
-//	public int getParticleTexture() {
-//		return 2;
-//	}
+
 
 	@Override
 	public void tick() {

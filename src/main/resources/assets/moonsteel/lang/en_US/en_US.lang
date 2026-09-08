@@ -42,3 +42,6 @@ moonsteel.teleport.fail.dimension=Star is linked to a different dimension.
 
 moonsteel.container.backpack.star.name=Stardust Backpack
 subtitles.moonsteel.starspawn=Starfall
+
+tile.moonsteel.star.lamp.name=Star Lamp
+tile.moonsteel.star.lamp.desc=Shiny new lamp.
