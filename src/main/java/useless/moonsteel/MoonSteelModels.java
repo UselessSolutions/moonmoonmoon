@@ -1,53 +1,43 @@
 package useless.moonsteel;
 
-import net.minecraft.client.render.EntityRenderDispatcher;
-import net.minecraft.client.render.TileEntityRenderDispatcher;
-import net.minecraft.client.render.block.color.BlockColorDispatcher;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
-import net.minecraft.client.render.block.model.BlockModelStandard;
-import net.minecraft.client.render.block.model.BlockModelTorch;
+import net.minecraft.client.render.block.model.generic.BlockModelGeneric;
+import net.minecraft.client.render.block.model.generic.BlockModelGenericRotatable;
+import net.minecraft.client.render.block.model.generic.BlockModelGenericTorch;
 import net.minecraft.client.render.item.model.ItemModelDispatcher;
 import net.minecraft.client.render.item.model.ItemModelStandard;
 import net.minecraft.client.render.texture.stitcher.TextureRegistry;
 import net.minecraft.core.item.Item;
 import net.minecraft.core.util.collection.NamespaceID;
-import net.minecraft.core.util.helper.Side;
 import org.jetbrains.annotations.NotNull;
-import turniplabs.halplibe.util.ModelEntrypoint;
+import useless.moonsteel.block.BlockModelStarLamp;
 import useless.moonsteel.block.BlockModelStellarRewinder;
 import useless.moonsteel.item.ItemModelConnectStar;
 
+import static net.minecraft.client.render.block.model.BlockModelDispatcher.loadDataModel;
+import static net.minecraft.client.render.item.model.ItemModelDispatcher.*;
 import static useless.moonsteel.MoonSteel.MOD_ID;
 
-public class MoonSteelModels implements ModelEntrypoint {
-	@Override
-	public void initBlockModels(final BlockModelDispatcher dispatcher) {
-		final Side[] S_TB = {Side.TOP, Side.BOTTOM};
-		final Side[] S_SIDES = {Side.NORTH, Side.EAST, Side.SOUTH, Side.WEST};
+public class MoonSteelModels {
 
-		dispatcher.addDispatch(new BlockModelStandard<>(MoonSteelBlocks.BLOCK_MOONSTEEL)
-			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/moonsteel_block_side", S_SIDES)
-			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/moonsteel_block_top", Side.TOP)
-			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/moonsteel_block_bottom", Side.BOTTOM));
+	private MoonSteelModels(){}
 
-		dispatcher.addDispatch(new BlockModelTorch<>(MoonSteelBlocks.TORCH_STAR)
-			.setAllTextures(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/startorch"));
-
-		dispatcher.addDispatch(new BlockModelStellarRewinder<>(MoonSteelBlocks.STELLAR_REWINDER)
-			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/stellarrewinder_side", Side.SOUTH, Side.WEST, Side.EAST)
-			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/stellarrewinder_front", Side.NORTH)
-			.setTex(BlockModelStandard.BLOCK_TEXTURES, MOD_ID + ":block/stellarrewinder_top", S_TB));
+	public static void initBlockModels(final BlockModelDispatcher dispatcher) {
+		dispatcher.addDispatch(new BlockModelGeneric<>(MoonSteelBlocks.BLOCK_MOONSTEEL, loadDataModel(MOD_ID + ":block/moonsteel")));
+		dispatcher.addDispatch(new BlockModelGenericTorch<>(MoonSteelBlocks.TORCH_STAR, MOD_ID + ":block/star_torch").render3D(false));
+		dispatcher.addDispatch(new BlockModelStellarRewinder<>(MoonSteelBlocks.STELLAR_REWINDER, MOD_ID + ":block/stellarrewinder"));
+		dispatcher.addDispatch(new BlockModelStarLamp<>(MoonSteelBlocks.STAR_LAMP, loadDataModel(MOD_ID + ":block/starlamp")));
 	}
 
-	@Override
-	public void initItemModels(final ItemModelDispatcher dispatcher) {
+
+	public static void initItemModels(final ItemModelDispatcher dispatcher) {
 		dispatcher.addDispatch(makeModel(MoonSteelItems.INGOT_MOONSTEEL, "moonsteel_ingot"));
 		dispatcher.addDispatch(makeModel(MoonSteelItems.INGOT_MOONSTEEL_CRUDE, "moonsteel_crude"));
-		dispatcher.addDispatch(makeModel(MoonSteelItems.TOOL_PICKAXE_MOONSTEEL, "moonsteel_pickaxe").setFull3D());
-		dispatcher.addDispatch(makeModel(MoonSteelItems.TOOL_AXE_MOONSTEEL, "moonsteel_axe").setFull3D());
-		dispatcher.addDispatch(makeModel(MoonSteelItems.TOOL_SHOVEL_MOONSTEEL, "moonsteel_shovel").setFull3D());
-		dispatcher.addDispatch(makeModel(MoonSteelItems.TOOL_HOE_MOONSTEEL, "moonsteel_hoe").setFull3D());
-		dispatcher.addDispatch(makeModel(MoonSteelItems.TOOL_SWORD_MOONSTEEL, "moonsteel_sword").setFull3D());
+		dispatcher.addDispatch(makeHoldModel(MoonSteelItems.TOOL_PICKAXE_MOONSTEEL, "moonsteel_pickaxe"));
+		dispatcher.addDispatch(makeHoldModel(MoonSteelItems.TOOL_AXE_MOONSTEEL, "moonsteel_axe"));
+		dispatcher.addDispatch(makeHoldModel(MoonSteelItems.TOOL_SHOVEL_MOONSTEEL, "moonsteel_shovel"));
+		dispatcher.addDispatch(makeHoldModel(MoonSteelItems.TOOL_HOE_MOONSTEEL, "moonsteel_hoe"));
+		dispatcher.addDispatch(makeHoldModel(MoonSteelItems.TOOL_SWORD_MOONSTEEL, "moonsteel_sword"));
 		dispatcher.addDispatch(makeModel(MoonSteelItems.ARMOR_HELMET_MOONSTEEL, "moonsteel_helmet"));
 		dispatcher.addDispatch(makeModel(MoonSteelItems.ARMOR_CHESTPLATE_MOONSTEEL, "moonsteel_chestplate"));
 		dispatcher.addDispatch(makeModel(MoonSteelItems.ARMOR_LEGGINGS_MOONSTEEL, "moonsteel_leggings"));
@@ -57,8 +47,17 @@ public class MoonSteelModels implements ModelEntrypoint {
 		dispatcher.addDispatch(makeModel(MoonSteelItems.BACKPACK_COSMIC, "starpack"));
 	}
 
+
 	public static @NotNull ItemModelStandard makeModel(@NotNull final Item item, @NotNull final String textureValue) {
-		return setIcon(new ItemModelStandard(item, null), NamespaceID.getTemp(MOD_ID, "item/" + textureValue));
+		return setIcon(new ItemModelStandard(item, true), NamespaceID.fromPool(MOD_ID, "item/" + textureValue));
+	}
+
+	public static @NotNull ItemModelStandard makeHoldModel(@NotNull final Item item, @NotNull final String textureValue) {
+		return setIcon(new ItemModelStandard(item, true), NamespaceID.fromPool(MOD_ID, "item/" + textureValue))
+			.setDisplayPos("firstperson_righthand", HANDHELD_FIRST_PERSON_RIGHT_HAND)
+			.setDisplayPos("firstperson_lefthand", HANDHELD_FIRST_PERSON_LEFT_HAND)
+			.setDisplayPos("thirdperson_righthand", HANDHELD_THIRD_PERSON_RIGHT_HAND)
+			.setDisplayPos("thirdperson_lefthand", HANDHELD_THIRD_PERSON_LEFT_HAND);
 	}
 
 	public static <T extends ItemModelStandard> @NotNull T setIcon(@NotNull final T model, @NotNull final String texture) {
@@ -69,20 +68,5 @@ public class MoonSteelModels implements ModelEntrypoint {
 	public static <T extends ItemModelStandard> @NotNull T setIcon(@NotNull final T model, @NotNull final NamespaceID texture) {
 		model.icon = TextureRegistry.getTexture(texture);
 		return model;
-	}
-
-	@Override
-	public void initEntityModels(final EntityRenderDispatcher dispatcher) {
-
-	}
-
-	@Override
-	public void initTileEntityModels(final TileEntityRenderDispatcher dispatcher) {
-
-	}
-
-	@Override
-	public void initBlockColors(final BlockColorDispatcher dispatcher) {
-
 	}
 }

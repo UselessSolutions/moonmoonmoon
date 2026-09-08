@@ -2,32 +2,38 @@
   "required": true,
   "minVersion": "0.8",
   "package": "useless.moonsteel.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_${java}",
   "plugin": "useless.moonsteel.MoonSteelMixinPlugin",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
   "injectors": {
     "defaultRequire": 1
   },
   "server": [
-    "ChunkProviderServerMixin",
-    "PlayerListMixin",
-    "backpack.PlayerServerMixin"
+    "backpack.PlayerListMixinRespawn",
+    "backpack.PlayerServerMixin",
+    "chunkprovider.ChunkProviderServerMixin",
+    "stella.PlayerServerMixinStella"
   ],
   "mixins": [
-    "BlockLogicMixin",
-    "WorldFeatureLabyrinthMixin",
-    "WorldMixin",
+    "accessor.ParticleFlameAccessor",
+    "WorldFeatureLabyrinthMixinRewards",
     "accessor.ItemToolSwordAccessor",
+    "armor.MobMixin",
+    "armor.MobZombieArmoredMixin",
+    "armor.PlayerMixinEquipment",
+    "backpack.MinecraftMixinRespawn",
     "backpack.PlayerMixin",
-    "entity.EntityItemMixin",
-    "entity.MobMixin",
-    "entity.MobZombieArmoredMixin",
-    "entity.PlayerMixin"
+    "fortune.BlockLogicMixin",
+    "starfallen.EntityItemMixin",
+    "starfallen.WorldMixinStarFall",
+    "stella.PlayerMixinStella"
   ],
   "client": [
-    "ChunkProviderStaticMixin",
-    "MobRenderZombieArmoredMixin",
-    "PacketHandlerClientMixin",
-    "backpack.MinecraftMixin",
-    "backpack.PlayerLocalMixin"
+    "armor.MobRenderZombieArmoredMixin",
+    "backpack.PacketHandlerClientMixinGui",
+    "backpack.PlayerLocalMixinGui",
+    "chunkprovider.ChunkProviderStaticMixin"
   ]
 }

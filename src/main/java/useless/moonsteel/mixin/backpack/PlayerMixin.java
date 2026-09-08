@@ -5,23 +5,26 @@ import com.mojang.nbt.tags.ListTag;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import useless.moonsteel.StarBackpackInventory;
+import useless.moonsteel.backpack.StarBackpackInventory;
 import useless.moonsteel.interfaces.IStarBackpack;
-import useless.moonsteel.interfaces.ITeleporter;
 
 @Mixin(value = Player.class, remap = false)
-public abstract class PlayerMixin extends Mob implements IStarBackpack, ITeleporter {
+public abstract class PlayerMixin extends Mob implements IStarBackpack {
 	@Unique
 	public StarBackpackInventory starBackpackInventory;
 
-	public PlayerMixin(@Nullable final World world) {
+	protected PlayerMixin(final World world) {
 		super(world);
+	}
+
+	@Override
+	public void moonsteel$displayGuiStarBackpack() {
+
 	}
 
 	@Inject(method = "<init>(Lnet/minecraft/core/world/World;)V", at = @At("TAIL"))
@@ -36,6 +39,7 @@ public abstract class PlayerMixin extends Mob implements IStarBackpack, ITelepor
 	private void loadData(final CompoundTag tag, final CallbackInfo ci){
 		this.starBackpackInventory.readFromNBT(tag.getList("moonsteel$InventoryStardust"));
 	}
+
 	@Override
 	public StarBackpackInventory moonsteel$getStarBackpackInventory() {
 		return this.starBackpackInventory;
@@ -44,15 +48,5 @@ public abstract class PlayerMixin extends Mob implements IStarBackpack, ITelepor
 	@Override
 	public void moonsteel$setStarBackpackInventory(final StarBackpackInventory backpackInventory) {
 		this.starBackpackInventory = backpackInventory;
-	}
-
-	@Override
-	public void moonsteel$displayGuiStarBackpack() {
-
-	}
-
-	@Override
-	public void moonsteel$teleport(final double x, final double y, final double z) {
-		setPos(x, y + this.bbHeight, z);
 	}
 }

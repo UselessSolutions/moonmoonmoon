@@ -3,7 +3,6 @@ package useless.moonsteel.mixin.backpack;
 import net.minecraft.core.net.packet.PacketContainerOpen;
 import net.minecraft.core.world.World;
 import net.minecraft.server.entity.player.PlayerServer;
-import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,7 +12,7 @@ import useless.moonsteel.MoonSteel;
 
 @Mixin(value = PlayerServer.class, remap = false)
 public abstract class PlayerServerMixin extends PlayerMixin {
-	public PlayerServerMixin(@Nullable World world) {
+	protected PlayerServerMixin(@Nullable World world) {
 		super(world);
 	}
 
@@ -22,8 +21,6 @@ public abstract class PlayerServerMixin extends PlayerMixin {
 
 	@Shadow
 	private int currentWindowId;
-	@Shadow
-	public PacketHandlerServer playerNetServerHandler;
 	@Unique
 	public PlayerServer thisAs = (PlayerServer) (Object)this;
 
@@ -36,13 +33,10 @@ public abstract class PlayerServerMixin extends PlayerMixin {
 			.sendPacket(
 				new PacketContainerOpen(this.currentWindowId, MoonSteel.GUI_ID, "moonsteel$StarBackpack", backpack.backpackInventory.getContainerSize())
 			);
-		this.thisAs.craftingInventory = backpack;
-		this.thisAs.craftingInventory.containerId = this.currentWindowId;
-		this.thisAs.craftingInventory.addSlotListener(this.thisAs);
+		this.thisAs.containerMenu = backpack;
+		this.thisAs.containerMenu.containerId = this.currentWindowId;
+		this.thisAs.containerMenu.addSlotListener(this.thisAs);
 	}
 
-	@Override
-	public void moonsteel$teleport(final double x, final double y, final double z) {
-		this.playerNetServerHandler.teleport(x, y, z);
-	}
+
 }

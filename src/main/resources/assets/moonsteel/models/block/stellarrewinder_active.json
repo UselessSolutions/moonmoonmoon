@@ -1,0 +1,6 @@
+{
+  "parent": "moonsteel:block/stellarrewinder",
+  "textures": {
+    "front": "moonsteel:block/stellarrewinder_front_active"
+  }
+}

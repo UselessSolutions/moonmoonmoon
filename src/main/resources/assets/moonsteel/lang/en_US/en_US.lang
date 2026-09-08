@@ -1,0 +1,47 @@
+item.moonsteel.ingot.moonsteel.name=Moonsteel Ingot
+item.moonsteel.ingot.moonsteel.desc=Steel and Stardust fused into a powerful alloy.
+item.moonsteel.crude.moonsteel.name=Crude Moonsteel
+item.moonsteel.crude.moonsteel.desc=Steel and Stardust waiting to be fused.
+item.moonsteel.tool.axe.moonsteel.name=Moonsteel Axe
+item.moonsteel.tool.axe.moonsteel.desc=Chop some trees with this fortunate moonsteel tool.
+item.moonsteel.tool.pickaxe.moonsteel.name=Moonsteel Pickaxe
+item.moonsteel.tool.pickaxe.moonsteel.desc=Pick some stone with this fortunate moonsteel tool.
+item.moonsteel.tool.shovel.moonsteel.name=Moonsteel Shovel
+item.moonsteel.tool.shovel.moonsteel.desc=Dig up the dirt with this fortunate moonsteel tool.
+item.moonsteel.tool.hoe.moonsteel.name=Moonsteel Hoe
+item.moonsteel.tool.hoe.moonsteel.desc=Till the land with this fortunate moonsteel tool.
+item.moonsteel.tool.sword.moonsteel.name=Moonsteel Sword
+item.moonsteel.tool.sword.moonsteel.desc=Slay pesky monsters with this fortunate moonsteel tool.
+item.moonsteel.helmet.moonsteel.name=Moonsteel Helmet
+item.moonsteel.helmet.moonsteel.desc=A weightless moonsteel helmet.
+item.moonsteel.chestplate.moonsteel.name=Moonsteel Chestplate
+item.moonsteel.chestplate.moonsteel.desc=A weightless moonsteel chestplate.
+item.moonsteel.leggings.moonsteel.name=Moonsteel Leggings
+item.moonsteel.leggings.moonsteel.desc=A pair of weightless moonsteel leggings.
+item.moonsteel.boots.moonsteel.name=Moonsteel Boots
+item.moonsteel.boots.moonsteel.desc=A pair of weightless moonsteel boots.
+item.moonsteel.star.fallen.name=Fallen Star
+item.moonsteel.star.fallen.desc=A fallen stellar object with interesting properties.
+item.moonsteel.backpack.cosmic.name=Stardust Backpack
+item.moonsteel.backpack.cosmic.desc=Stores your items in a pocket dimension.
+item.moonsteel.backpack.cosmic.missing.name=Install Better with Backpacks
+item.moonsteel.backpack.cosmic.missing.desc=This item does nothing without Better with Backpacks
+item.moonsteel.star.connected.name=Connected Star
+item.moonsteel.star.connected.desc=A star entangled with a location.
+
+tile.moonsteel.block.name=Block of Moonsteel
+tile.moonsteel.block.desc=A solid block of moonsteel.
+tile.moonsteel.torch.star.name=Stardust Torch
+tile.moonsteel.torch.star.desc=A magical source of light.
+tile.moonsteel.stellar.rewinder.name=Stellar Rewinder
+tile.moonsteel.stellar.rewinder.desc=An anchor for a connect star to link to.
+
+moonsteel.teleport.fail.missing=Link could not be established, Stellar rewinder possibly missing.
+moonsteel.teleport.fail.score=Not enough score to establish link.
+moonsteel.teleport.fail.dimension=Star is linked to a different dimension.
+
+moonsteel.container.backpack.star.name=Stardust Backpack
+subtitles.moonsteel.starspawn=Starfall
+
+tile.moonsteel.star.lamp.name=Star Lamp
+tile.moonsteel.star.lamp.desc=Shiny new lamp.

@@ -2,25 +2,39 @@ package useless.moonsteel;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.block.Blocks;
+import net.minecraft.core.block.entity.TileEntityDispatcher;
+import net.minecraft.core.item.IItemConvertible;
 import net.minecraft.core.item.ItemStack;
+import net.minecraft.core.item.Items;
 import net.minecraft.core.sound.SoundTypes;
 import net.minecraft.core.util.collection.NamespaceID;
 import net.minecraft.core.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tosutosu.betterwithbackpacks.ModItems;
-import turniplabs.halplibe.helper.CreativeHelper;
-import turniplabs.halplibe.helper.EntityHelper;
+import turniplabs.halplibe.HalpLibe;
+import turniplabs.halplibe.event.defs.CommonEvents;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryCategory;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryPlacement;
+import turniplabs.halplibe.helper.creativeInventory.CreativeInventoryRegistry;
 import turniplabs.halplibe.util.ConfigHandler;
-import turniplabs.halplibe.util.GameStartEntrypoint;
+import turniplabs.halplibe.util.dependency.Key;
 import useless.moonsteel.block.TileEntityStellarRewinder;
 
 import java.util.Properties;
+import java.util.function.Supplier;
+
+import static useless.moonsteel.MoonSteelBlocks.*;
+import static useless.moonsteel.MoonSteelItems.*;
 
 
-public class MoonSteel implements ModInitializer, GameStartEntrypoint {
-    public static final String MOD_ID = "moonsteel";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+public class MoonSteel implements ModInitializer {
+    public static final String MOD_ID = HalpLibe.registerMod("moonsteel");
+	public static final Key KEY = Key.of(MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final String SMOKE = "moonsteel$magic_smoke";
+	public static final String STAR = "moonsteel$star";
 	public static boolean backpackPresent = FabricLoader.getInstance().isModLoaded("betterwithbackpacks");
 	public static int blockId;
 	public static int itemId;
@@ -28,6 +42,9 @@ public class MoonSteel implements ModInitializer, GameStartEntrypoint {
 	public static int FORTUNE_AMOUNT;
 	public static int LOOTING_AMOUNT;
 	public static int STAR_SPAWN_RATE;
+	public static ItemStack starZombieSword;
+	public static boolean forceChunkLoads = false;
+
 	static {
 		final Properties prop = new Properties();
 		prop.setProperty("starting_block_id","6700");
@@ -48,31 +65,56 @@ public class MoonSteel implements ModInitializer, GameStartEntrypoint {
 		config.updateConfig();
 	}
 
-	public static ItemStack starZombieSword;
-	public static boolean forceChunkLoads = false;
     @Override
     public void onInitialize() {
         LOGGER.info("MoonSteel initialized.");
+		CommonEvents.BEFORE_GAME_START.listen(KEY, this::beforeGameStart);
+		CommonEvents.RECIPES_READY.listen(KEY, MoonSteelRecipes::onRecipesReady);
+		CommonEvents.RECIPES_NAMESPACE_INIT.listen(KEY, MoonSteelRecipes::initNamespaces);
     }
 
-	@Override
 	public void beforeGameStart() {
 		SoundTypes.loadSoundsJson(MOD_ID);
-		EntityHelper.createTileEntity(TileEntityStellarRewinder.class, NamespaceID.getPermanent(MOD_ID, "moonsteel$stellar_rewinder"), "moonsteel$stellar_rewinder");
+		TileEntityDispatcher.addMapping(
+			TileEntityStellarRewinder.class,
+			NamespaceID.fromPool(MOD_ID, "moonsteel$stellar_rewinder")
+		);
 		MoonSteelBlocks.init();
 		MoonSteelItems.init();
+		// blocks
+		CreativeInventoryRegistry.INSTANCE.register(BLOCK_MOONSTEEL, place(() -> Blocks.BLOCK_OLIVINE));
+		CreativeInventoryRegistry.INSTANCE.register(TORCH_STAR, place(() -> Blocks.TORCH_COAL));
+		CreativeInventoryRegistry.INSTANCE.register(STELLAR_REWINDER, place());
+		CreativeInventoryRegistry.INSTANCE.register(STAR_LAMP, place(() -> Blocks.TORCH_COAL));
+		// items
+		CreativeInventoryRegistry.INSTANCE.register(INGOT_MOONSTEEL_CRUDE, place(() -> Items.INGOT_STEEL_CRUDE));
+		CreativeInventoryRegistry.INSTANCE.register(INGOT_MOONSTEEL, place(() -> Items.INGOT_STEEL_CRUDE));
+		CreativeInventoryRegistry.INSTANCE.register(STAR_FALLEN, place(() -> Items.INGOT_STEEL_CRUDE));
+		CreativeInventoryRegistry.INSTANCE.register(STAR_CONNECTED, place(() -> Items.INGOT_STEEL_CRUDE));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_SHOVEL_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_PICKAXE_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_AXE_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_HOE_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(TOOL_SWORD_MOONSTEEL, place(() -> Items.TOOL_SWORD_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_HELMET_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_CHESTPLATE_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_LEGGINGS_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
+		CreativeInventoryRegistry.INSTANCE.register(ARMOR_BOOTS_MOONSTEEL, place(() -> Items.ARMOR_WOLF_STEEL));
 		if (backpackPresent){
-			CreativeHelper.setParent(MoonSteelItems.BACKPACK_COSMIC.getDefaultStack(), ModItems.diamondBackpack.getDefaultStack());
+			CreativeInventoryRegistry.INSTANCE.register(BACKPACK_COSMIC, place(() -> Items.ARMOR_WOLF_STEEL));
 		}
 	}
 
-	@Override
-	public void afterGameStart() {
+	private static CreativeInventoryPlacement.@NotNull After place(Supplier<IItemConvertible> iItemConvertibleSupplier) {
+		return new CreativeInventoryPlacement.After(iItemConvertibleSupplier);
+	}
 
+	private static CreativeInventoryPlacement.@NotNull Category place() {
+		return new CreativeInventoryPlacement.Category(CreativeInventoryCategory.WORKBENCHES);
 	}
 
 	public static boolean isStarTime(final World world){
-		if (world.worldType.hasCeiling()) return false;
+		if (world.getWorldType().hasCeiling()) return false;
 		if (world.isDaytime()) return false;
 		return world.getWorldTime() % 2000 <= 200;
 	}
