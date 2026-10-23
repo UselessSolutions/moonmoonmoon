@@ -1,5 +1,7 @@
 package useless.moonsteel.mixin.armor;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.Mob;
 import net.minecraft.core.entity.player.Player;
@@ -28,22 +30,27 @@ public abstract class MobMixin extends Entity {
 		super(world);
 	}
 
-	@Redirect(method = "moveEntityWithHeading(FF)V", at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;yd:D", opcode = Opcodes.PUTFIELD))
-	private void entityGravity(final Mob entity, final double yd){ //Probably terrible way of modifying gravity by a scalar
-		if (entity instanceof IMoonGrav){
-			final double offset = -(yd - this.yd);
-			final double scalar = ((IMoonGrav) entity).moonsteel$getGravScalar();
-			if ((0.021 > offset && offset > 0.019) || (0.081 > offset && offset > 0.079)){ // If falling in water or in air
-				entity.yd -= offset * scalar;
-			} else if ((-0.251 < yd && yd < -0.249)) { // Terminal velocity
-				entity.yd = yd * scalar;
-			} else { // Else regular behavior
-				entity.yd = yd;
+	@WrapOperation(method = "moveEntityWithHeading(FF)V",
+		at = @At(value = "FIELD", target = "Lnet/minecraft/core/entity/Mob;yd:D", opcode = Opcodes.PUTFIELD))
+	private void entityGravity(Mob entity, double yd, Operation<Void> original) {
+		if (entity instanceof IMoonGrav iMoonGrav) {
+			final double offset = -(yd - entity.yd);
+			final double scalar = iMoonGrav.moonsteel$getGravScalar();
+			if ((0.019 < offset && offset < 0.021) || (0.079 < offset && offset < 0.081)) { // gravity step in water or air
+				original.call(entity, entity.yd - offset * scalar);
+				return;
 			}
-		} else {
-			entity.yd = yd;
+			if (-0.251 < yd && yd < -0.249) { // ladder clamp
+				original.call(entity, yd * scalar);
+				return;
+			}
+			original.call(entity, yd);
+			return;
 		}
+		original.call(entity, yd);
 	}
+
+
 	@ModifyVariable(method = "causeFallDamage(F)V", at = @At(value = "STORE"), ordinal = 0)
 	private int changeFallDamage(final int i){
 		if (this instanceof IMoonGrav){
